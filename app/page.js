@@ -1,6 +1,86 @@
-'use client';
-import {useState} from 'react';
-import {House,Mountain,UtensilsCrossed,MessageCircle,Wifi,Car,Bus,Flame,MapPin,Phone,BedDouble,Bath,Users,ChevronRight,Trees,Coffee,Snowflake,Compass,Clock3,ShieldCheck} from 'lucide-react';
-const C={de:{ey:'Willkommen im',sub:'Großzügiger Alpenrückzugsort mit Garten und Bergpanorama',introT:'Ein Ort zum Ankommen',intro:'Chalet Michael verbindet den authentischen Charakter der 1970er Jahre mit modernem Komfort. Besonders angenehm für Familien und kleinere Gruppen von 4–6 Personen, mit viel Raum, Privatsphäre und Ruhe.',explore:'Entdecken',nav:['Das Chalet','Erleben','Genießen','Petra'],quick:['200 m² Wohnfläche','4 Schlafzimmer','2 Badezimmer','Bis zu 10 Gäste'],chT:'Ihr Zuhause in den Walliser Alpen',ch:'Großzügige Wohnbereiche, eine offene Küche, viel Holz, ein markanter Kamin und ein weitläufiger Garten schaffen eine warme, entspannte Atmosphäre.',arrT:'Anreise & Aufenthalt',arr:[['Check-in','Regulär ab 17:00 Uhr. Ein früherer Check-in kann etwa eine Woche vor Anreise angefragt werden.'],['Parken','Großzügige private Parkmöglichkeiten direkt am Chalet, auch für mehrere Fahrzeuge.'],['Bus','Die Bushaltestelle nach Grächen befindet sich praktisch direkt vor dem Haus.'],['WLAN','Netzwerk und Passwort werden vor der Anreise bereitgestellt.']],gal:'Einblicke ins Chalet',regT:'Die Region entdecken',reg:'Grächen, Zermatt, Saas-Fee und die Aletsch Arena liegen in komfortabler Reichweite. Wanderungen, Skitage und alpine Ausflüge beginnen praktisch vor der Haustür.',enT:'Genießen & Entspannen',en:'Gemeinsam kochen, lange Abende am Esstisch, ein Glas Wein auf der Terrasse oder ruhige Stunden vor dem Kamin – Chalet Michael ist für die einfachen, besonderen Momente gemacht.',peT:'Persönlich betreut von Petra',pe:'Petra empfängt Sie persönlich, begleitet Check-in und Check-out und steht während des Aufenthalts mit regionalen Tipps und praktischer Hilfe zur Seite.',good:'Gut zu wissen',rules:['Nichtraucherhaus','Keine Haustiere','Bettwäsche & Handtücher: CHF 40 pro Person','Kurtaxe separat über den Co-Host','Persönlicher Check-in'],contact:'Petra kontaktieren'},en:{ey:'Welcome to',sub:'A spacious alpine retreat with garden and mountain views',introT:'A place to settle in',intro:'Chalet Michael combines authentic 1970s character with modern comfort. It is especially well suited to families and smaller groups of 4–6 guests who value space, privacy and tranquillity.',explore:'Explore',nav:['The Chalet','Explore','Enjoy','Petra'],quick:['200 m² living space','4 bedrooms','2 bathrooms','Up to 10 guests'],chT:'Your home in the Valais Alps',ch:'Generous living areas, an open kitchen, warm timber interiors, a striking fireplace and a large garden create a relaxed, welcoming atmosphere.',arrT:'Arrival & stay',arr:[['Check-in','Standard check-in from 5:00 pm. Earlier arrival may be requested about one week before your stay.'],['Parking','Generous private parking directly at the chalet for several vehicles.'],['Bus','The bus stop to Grächen is located almost directly outside the house.'],['Wi-Fi','Network and password will be provided before arrival.']],gal:'Inside Chalet Michael',regT:'Discover the region',reg:'Grächen, Zermatt, Saas-Fee and the Aletsch Arena are all within comfortable reach. Hiking, skiing and alpine day trips begin almost at the doorstep.',enT:'Enjoy & unwind',en:'Cook together, linger around the dining table, enjoy a glass of wine on the terrace or settle in by the fireplace – Chalet Michael is made for simple, memorable moments.',peT:'Personally hosted by Petra',pe:'Petra welcomes you in person, assists with check-in and check-out, and remains available throughout your stay with local tips and practical help.',good:'Good to know',rules:['Non-smoking chalet','No pets','Bed linen & towels: CHF 40 per person','Visitor tax paid separately','Personal check-in'],contact:'Contact Petra'},fr:{ey:'Bienvenue au',sub:'Un refuge alpin spacieux avec jardin et vue sur les montagnes',introT:'Un lieu où se poser',intro:'Chalet Michael associe le charme authentique des années 1970 au confort moderne. Il convient particulièrement aux familles et aux petits groupes de 4 à 6 personnes qui apprécient l’espace, l’intimité et le calme.',explore:'Découvrir',nav:['Le chalet','Découvrir','Profiter','Petra'],quick:['200 m² habitables','4 chambres','2 salles de bain','Jusqu’à 10 personnes'],chT:'Votre maison dans les Alpes valaisannes',ch:'De grands espaces de vie, une cuisine ouverte, des boiseries chaleureuses, une cheminée remarquable et un vaste jardin créent une atmosphère accueillante et détendue.',arrT:'Arrivée & séjour',arr:[['Check-in','Arrivée standard dès 17h00. Une arrivée anticipée peut être demandée environ une semaine avant le séjour.'],['Parking','De nombreuses places de stationnement privées directement au chalet.'],['Bus','L’arrêt de bus pour Grächen se trouve presque devant la maison.'],['Wi-Fi','Le réseau et le mot de passe seront communiqués avant l’arrivée.']],gal:'Aperçu du chalet',regT:'Découvrir la région',reg:'Grächen, Zermatt, Saas-Fee et l’Aletsch Arena sont facilement accessibles. Randonnées, ski et excursions alpines commencent presque devant la porte.',enT:'Profiter & se détendre',en:'Cuisiner ensemble, prolonger les soirées autour de la table, boire un verre sur la terrasse ou se détendre devant la cheminée – Chalet Michael est fait pour les moments simples et mémorables.',peT:'Accueil personnel par Petra',pe:'Petra vous accueille personnellement, accompagne l’arrivée et le départ et reste disponible pendant tout le séjour avec ses conseils régionaux.',good:'Bon à savoir',rules:['Chalet non-fumeur','Animaux non admis','Linge de lit & serviettes: CHF 40 par personne','Taxe de séjour séparée','Accueil personnel'],contact:'Contacter Petra'}};
-const gallery=[['/living-fireplace.jpeg','Wohnzimmer'],['/kitchen-wide.jpeg','Küche'],['/terrace.jpeg','Terrasse'],['/bedroom-large.jpeg','Schlafzimmer'],['/bathroom-red.jpeg','Bad'],['/chalet-terrace.jpeg','Chalet']];
-export default function Page(){const [lang,setLang]=useState('de');const t=C[lang];return <main><section className="hero"><img className="heroImage" src="/chalet-front.jpeg" alt="Chalet Michael"/><div className="shade"/><div className="top"><img src="/logo.png" className="logo" alt="Logo"/><div>{['de','en','fr'].map(x=><button onClick={()=>setLang(x)} className={lang===x?'active':''}>{x.toUpperCase()}</button>)}</div></div><div className="heroText"><p>{t.ey}</p><h1>Chalet Michael</h1><h2>{t.sub}</h2><a href="#intro" className="primary">{t.explore}<ChevronRight size={18}/></a></div></section><section id="intro" className="section intro"><div><span className="kicker">Chalet Michael</span><h2>{t.introT}</h2><p>{t.intro}</p></div><div className="quick">{[<House/>,<BedDouble/>,<Bath/>,<Users/>].map((i,n)=><article>{i}<strong>{t.quick[n]}</strong></article>)}</div></section><section className="section tiles">{[[<House/>,t.nav[0],'#chalet','/living-fireplace.jpeg'],[<Mountain/>,t.nav[1],'#region','/mountain-view.jpeg'],[<UtensilsCrossed/>,t.nav[2],'#enjoy','/kitchen-bar.jpeg'],[<MessageCircle/>,t.nav[3],'#petra','/terrace.jpeg']].map(a=><a href={a[2]} style={{backgroundImage:`linear-gradient(#0003,#0009),url(${a[3]})`}}>{a[0]}<strong>{a[1]}</strong></a>)}</section><section id="chalet" className="section split"><img src="/living-fireplace.jpeg"/><div><span className="kicker">Chalet</span><h2>{t.chT}</h2><p>{t.ch}</p><div className="pills"><span><Flame/>Kamin</span><span><Trees/>Garten</span><span><Car/>Parking</span><span><Wifi/>Wi-Fi</span></div></div></section><section className="dark"><div className="section"><span className="kicker">Information</span><h2>{t.arrT}</h2><div className="info">{[<Clock3/>,<Car/>,<Bus/>,<Wifi/>].map((i,n)=><article>{i}<h3>{t.arr[n][0]}</h3><p>{t.arr[n][1]}</p></article>)}</div></div></section><section className="section"><span className="kicker">Galerie</span><h2>{t.gal}</h2><div className="gallery">{gallery.map(g=><img src={g[0]} alt={g[1]}/>)}</div></section><section id="region" className="region"><img src="/matterhorn.jpeg"/><div className="shade"/><div className="regionText"><span className="kicker">Wallis</span><h2>{t.regT}</h2><p>{t.reg}</p><div className="pills glass"><span><MapPin/>Grächen</span><span><Mountain/>Zermatt</span><span><Snowflake/>Saas-Fee</span><span><Compass/>Aletsch Arena</span></div></div></section><section id="enjoy" className="section split reverse"><img src="/kitchen-wide.jpeg"/><div><span className="kicker">Momente</span><h2>{t.enT}</h2><p>{t.en}</p><div className="pills"><span><Coffee/>Frühstück</span><span><UtensilsCrossed/>Kochen</span><span><Flame/>Kamin</span><span><Trees/>Terrasse</span></div></div></section><section id="petra" className="section petra"><div><span className="kicker">Co-Host</span><h2>{t.peT}</h2><p>{t.pe}</p><a href="tel:+41000000000" className="primary"><Phone size={18}/>{t.contact}</a></div><div className="rules"><h3>{t.good}</h3>{t.rules.map(r=><p><ShieldCheck size={18}/>{r}</p>)}</div></section><footer><img src="/logo.png"/><p>Niedergrächen / Gasenried · Wallis · Schweiz</p></footer></main>}
+"use client";
+import {useState} from "react";
+import {Wifi,MapPin,Clock3,KeyRound,Trash2,Flame,Heater,Coffee,Phone,MessageCircle,ShoppingBasket,Croissant,UtensilsCrossed,ChevronDown,ShieldCheck} from "lucide-react";
+
+const D={
+de:{
+ title:"Chalet Michael",sub:"Ihr digitaler Gästeguide",guest:"Informationen für Gäste",
+ addr:"Adresse & Anreise",address:"Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
+ check:"Check-out",checktxt:"Check-out ist bis 10:00 Uhr. Bitte kontaktieren Sie Petra wegen der Schlüsselübergabe.",
+ key:"Schlüssel",keytxt:"Bitte kontaktieren Sie Petra für die Schlüsselübergabe.",
+ wifi:"WLAN",net:"Netzwerk",pw:"Passwort",show:"Passwort anzeigen",hide:"Passwort verbergen",
+ waste:"Müll & Recycling",wastetxt:"Bitte Abfälle nach den örtlichen Regeln entsorgen. Glas und PET-Flaschen bitte recyceln. Hausmüll darf ausschließlich in den offiziellen orangefarbenen Säcken entsorgt werden. Zusätzliche Säcke sind im Coop erhältlich.",
+ heat:"Heizung bei Abreise",heattxt:"Alle Elektroheizkörper auf die Mindesttemperatur von ca. 7 °C stellen. Fußbodenheizungen und Handtuchheizungen in den Badezimmern ausschalten.",
+ fire:"Kamin",firetxt:"Feuer niemals unbeaufsichtigt lassen. Vor dem Schlafengehen vollständig erlöschen lassen; falls erforderlich mit Wasser löschen. Feuerholz ist im Supermarkt erhältlich.",
+ kitchen:"Küche",kitchentxt:"Nespresso-Kaffeemaschine mit separatem Milchaufschäumer.",
+ petra:"Petra – Ihre Co-Hostin",petratxt:"Petra empfängt Sie persönlich und steht während des Aufenthalts mit praktischer Hilfe und regionalen Tipps zur Verfügung.",
+ call:"Petra anrufen",wa:"WhatsApp an Petra",
+ enjoy:"Einkaufen & Genießen",bakery:"z'Pfünderli",bakerytxt:"Unsere Bäckerei-Empfehlung für frisches Brot und Gebäck – perfekt fürs Frühstück im Chalet.",
+ coop:"Coop Grächen",cooptxt:"Für Lebensmittel, Getränke und den täglichen Einkauf. Hier erhalten Sie auch die offiziellen orangefarbenen Kehrichtsäcke.",
+ food:"Restaurants",foodtxt:"Unsere Auswahl für Grächen: Träffpunkt, Piazza, Walliserkanne, Grächerhof und Bärgji-Alp.",
+ note:"Bitte beachten",rules:"Nichtraucherhaus · Keine Haustiere · Bettwäsche & Handtücher CHF 40 pro Person · Kurtaxe separat über den Co-Host."
+},
+en:{
+ title:"Chalet Michael",sub:"Your digital guest guide",guest:"Guest information",
+ addr:"Address & arrival",address:"Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
+ check:"Check-out",checktxt:"Check-out is by 10:00 am. Please contact Petra regarding the key handover.",
+ key:"Keys",keytxt:"Please contact Petra for the key handover.",
+ wifi:"Wi-Fi",net:"Network",pw:"Password",show:"Show password",hide:"Hide password",
+ waste:"Waste & recycling",wastetxt:"Please dispose of waste according to local rules. Recycle glass and PET bottles. Household waste must only be placed in official orange refuse bags. Additional bags are available at Coop.",
+ heat:"Heating on departure",heattxt:"Turn all electric radiators down to the minimum temperature of about 7 °C. Switch off bathroom underfloor heating and towel heaters.",
+ fire:"Fireplace",firetxt:"Never leave a fire unattended. Before going to bed, make sure it is fully extinguished; use water if necessary. Firewood is available at the supermarket.",
+ kitchen:"Kitchen",kitchentxt:"Nespresso coffee machine with separate milk frother.",
+ petra:"Petra – your co-host",petratxt:"Petra welcomes you personally and is available throughout your stay with practical help and local recommendations.",
+ call:"Call Petra",wa:"WhatsApp Petra",
+ enjoy:"Shopping & dining",bakery:"z'Pfünderli",bakerytxt:"Our bakery recommendation for fresh bread and pastries – perfect for breakfast at the chalet.",
+ coop:"Coop Grächen",cooptxt:"For groceries, drinks and everyday shopping. Official orange refuse bags are also available here.",
+ food:"Restaurants",foodtxt:"Our Grächen shortlist: Träffpunkt, Piazza, Walliserkanne, Grächerhof and Bärgji-Alp.",
+ note:"Please note",rules:"Non-smoking chalet · No pets · Bed linen & towels CHF 40 per person · Visitor tax paid separately via the co-host."
+},
+fr:{
+ title:"Chalet Michael",sub:"Votre guide numérique",guest:"Informations pour les hôtes",
+ addr:"Adresse & arrivée",address:"Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
+ check:"Check-out",checktxt:"Le départ est prévu avant 10h00. Merci de contacter Petra pour la remise des clés.",
+ key:"Clés",keytxt:"Merci de contacter Petra pour la remise des clés.",
+ wifi:"Wi-Fi",net:"Réseau",pw:"Mot de passe",show:"Afficher le mot de passe",hide:"Masquer le mot de passe",
+ waste:"Déchets & recyclage",wastetxt:"Merci de respecter les règles locales. Recyclez le verre et les bouteilles PET. Les déchets ménagers doivent être placés uniquement dans les sacs orange officiels, disponibles au Coop.",
+ heat:"Chauffage au départ",heattxt:"Réglez tous les radiateurs électriques à la température minimale d’environ 7 °C. Éteignez le chauffage au sol et les sèche-serviettes dans les salles de bain.",
+ fire:"Cheminée",firetxt:"Ne laissez jamais le feu sans surveillance. Avant de dormir, assurez-vous qu’il soit complètement éteint; utilisez de l’eau si nécessaire. Le bois est disponible au supermarché.",
+ kitchen:"Cuisine",kitchentxt:"Machine Nespresso avec mousseur à lait séparé.",
+ petra:"Petra – votre co-hôte",petratxt:"Petra vous accueille personnellement et reste disponible pendant votre séjour pour vous aider et partager ses conseils locaux.",
+ call:"Appeler Petra",wa:"WhatsApp Petra",
+ enjoy:"Courses & plaisirs",bakery:"z'Pfünderli",bakerytxt:"Notre boulangerie recommandée pour le pain frais et les pâtisseries – idéale pour le petit-déjeuner.",
+ coop:"Coop Grächen",cooptxt:"Pour les courses quotidiennes, boissons et alimentation. Les sacs-poubelle orange officiels y sont également disponibles.",
+ food:"Restaurants",foodtxt:"Notre sélection à Grächen : Träffpunkt, Piazza, Walliserkanne, Grächerhof et Bärgji-Alp.",
+ note:"À savoir",rules:"Chalet non-fumeur · Animaux non admis · Linge et serviettes CHF 40 par personne · Taxe de séjour séparée via le co-hôte."
+}};
+
+const items=(t)=>[
+ [MapPin,t.addr,t.address],[Clock3,t.check,t.checktxt],[KeyRound,t.key,t.keytxt],
+ [Trash2,t.waste,t.wastetxt],[Heater,t.heat,t.heattxt],[Flame,t.fire,t.firetxt],[Coffee,t.kitchen,t.kitchentxt]
+];
+
+export default function Page(){
+ const [lang,setLang]=useState("de"); const [showPw,setShowPw]=useState(false); const t=D[lang];
+ return <main>
+  <header><div><small>CHALET MICHAEL</small><h1>{t.title}</h1><p>{t.sub}</p></div>
+   <nav>{["de","en","fr"].map(x=><button className={x===lang?"on":""} onClick={()=>setLang(x)} key={x}>{x.toUpperCase()}</button>)}</nav>
+  </header>
+  <section className="wrap">
+   <h2>{t.guest}</h2>
+   <div className="wifi card"><Wifi/><div><h3>{t.wifi}</h3><p><b>{t.net}:</b> Chalet Michael</p><p><b>{t.pw}:</b> {showPw?"Stgt_4563":"•••••••••"}</p><button onClick={()=>setShowPw(!showPw)}>{showPw?t.hide:t.show}</button></div></div>
+   <div className="grid">{items(t).map(([Icon,h,p],i)=><article className="card" key={i}><Icon/><h3>{h}</h3><p>{p}</p></article>)}</div>
+  </section>
+  <section className="petra">
+   <div className="wrap two"><div><small>CO-HOST</small><h2>{t.petra}</h2><p>{t.petratxt}</p>
+    <div className="buttons"><a href="tel:+41797570753"><Phone/>{t.call}</a><a className="dark" href="https://wa.me/32475320980"><MessageCircle/>{t.wa}</a></div>
+   </div><div className="notice"><ShieldCheck/><h3>{t.note}</h3><p>{t.rules}</p></div></div>
+  </section>
+  <section className="wrap"><h2>{t.enjoy}</h2><div className="grid three">
+   <article className="card"><Croissant/><h3>{t.bakery}</h3><p>{t.bakerytxt}</p></article>
+   <article className="card"><ShoppingBasket/><h3>{t.coop}</h3><p>{t.cooptxt}</p></article>
+   <article className="card"><UtensilsCrossed/><h3>{t.food}</h3><p>{t.foodtxt}</p></article>
+  </div></section>
+  <footer>Chalet Michael · Grächen · Wallis</footer>
+ </main>
+}
