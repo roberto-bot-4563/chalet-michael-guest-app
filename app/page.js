@@ -5,7 +5,7 @@ import {
   House, Mountain, UtensilsCrossed, MessageCircle, Wifi, Car, Bus, Flame,
   MapPin, Phone, BedDouble, Bath, Users, ChevronRight, Trees, Coffee,
   Snowflake, Compass, Clock3, ShieldCheck, KeyRound, Trash2, Heater,
-  ShoppingBasket, Croissant
+  ShoppingBasket, Croissant, LockKeyhole, Navigation
 } from "lucide-react";
 
 const T = {
@@ -34,12 +34,14 @@ de:{
  enjoyTitle:"Genießen & Einkaufen",
  bakery:"z'Pfünderli", bakerytxt:"Unsere Bäckerei-Empfehlung für frisches Brot und Gebäck – perfekt fürs Frühstück im Chalet.",
  coop:"Coop Grächen", cooptxt:"Für Lebensmittel, Getränke und den täglichen Einkauf. Hier erhalten Sie auch die offiziellen orangefarbenen Kehrichtsäcke.",
- restaurants:"Restaurants", restauranttxt:"Unsere Auswahl für Grächen: Träffpunkt, Piazza, Walliserkanne, Grächerhof und Bärgji-Alp.",
+ restaurants:"Restaurants in Grächen", restauranttxt:"Unsere Auswahl: Träffpunkt, Piazza, Walliserkanne, Grächerhof und Bärgji-Alp.",
+ route:"Auf Karte öffnen",
  petraTitle:"Persönlich betreut von Petra",
  petraText:"Petra empfängt Sie persönlich, begleitet Check-in und Check-out und steht während des Aufenthalts mit regionalen Tipps und praktischer Hilfe zur Seite.",
  call:"Petra anrufen", whatsapp:"WhatsApp an Petra",
  rulesTitle:"Gut zu wissen",
- rules:["Nichtraucherhaus","Keine Haustiere","Bettwäsche & Handtücher: CHF 40 pro Person","Kurtaxe separat über den Co-Host","Persönlicher Check-in"]
+ rules:["Nichtraucherhaus","Keine Haustiere","Bettwäsche & Handtücher: CHF 40 pro Person","Kurtaxe separat über den Co-Host","Persönlicher Check-in"],
+ manager:"Chalet Manager – Familie & Freunde"
 },
 en:{
  eyebrow:"Welcome to", title:"Chalet Michael",
@@ -66,12 +68,14 @@ en:{
  enjoyTitle:"Enjoy & shop",
  bakery:"z'Pfünderli", bakerytxt:"Our bakery recommendation for fresh bread and pastries – perfect for breakfast at the chalet.",
  coop:"Coop Grächen", cooptxt:"For groceries, drinks and everyday shopping. Official orange refuse bags are also available here.",
- restaurants:"Restaurants", restauranttxt:"Our Grächen shortlist: Träffpunkt, Piazza, Walliserkanne, Grächerhof and Bärgji-Alp.",
+ restaurants:"Restaurants in Grächen", restauranttxt:"Our shortlist: Träffpunkt, Piazza, Walliserkanne, Grächerhof and Bärgji-Alp.",
+ route:"Open in Maps",
  petraTitle:"Personally hosted by Petra",
  petraText:"Petra welcomes you in person, assists with check-in and check-out, and remains available throughout your stay with local tips and practical help.",
  call:"Call Petra", whatsapp:"WhatsApp Petra",
  rulesTitle:"Good to know",
- rules:["Non-smoking chalet","No pets","Bed linen & towels: CHF 40 per person","Visitor tax paid separately","Personal check-in"]
+ rules:["Non-smoking chalet","No pets","Bed linen & towels: CHF 40 per person","Visitor tax paid separately","Personal check-in"],
+ manager:"Chalet Manager – Family & Friends"
 },
 fr:{
  eyebrow:"Bienvenue au", title:"Chalet Michael",
@@ -98,12 +102,14 @@ fr:{
  enjoyTitle:"Profiter & faire ses courses",
  bakery:"z'Pfünderli", bakerytxt:"Notre boulangerie recommandée pour le pain frais et les pâtisseries – idéale pour le petit-déjeuner.",
  coop:"Coop Grächen", cooptxt:"Pour les courses quotidiennes, boissons et alimentation. Les sacs-poubelle orange officiels y sont également disponibles.",
- restaurants:"Restaurants", restauranttxt:"Notre sélection à Grächen : Träffpunkt, Piazza, Walliserkanne, Grächerhof et Bärgji-Alp.",
+ restaurants:"Restaurants à Grächen", restauranttxt:"Notre sélection : Träffpunkt, Piazza, Walliserkanne, Grächerhof et Bärgji-Alp.",
+ route:"Ouvrir la carte",
  petraTitle:"Accueil personnel par Petra",
  petraText:"Petra vous accueille personnellement, accompagne l’arrivée et le départ et reste disponible pendant tout le séjour avec ses conseils régionaux.",
  call:"Appeler Petra", whatsapp:"WhatsApp Petra",
  rulesTitle:"Bon à savoir",
- rules:["Chalet non-fumeur","Animaux non admis","Linge et serviettes: CHF 40 par personne","Taxe de séjour séparée","Accueil personnel"]
+ rules:["Chalet non-fumeur","Animaux non admis","Linge et serviettes: CHF 40 par personne","Taxe de séjour séparée","Accueil personnel"],
+ manager:"Chalet Manager – Famille & amis"
 }
 };
 
@@ -115,6 +121,12 @@ const gallery = [
  ["/bathroom-red.jpeg","Bathroom"],
  ["/chalet-terrace.jpeg","Chalet"]
 ];
+
+const mapLinks = {
+ bakery:"https://www.google.com/maps/search/?api=1&query=z%27Pfuenderli+Graechen+Switzerland",
+ coop:"https://www.google.com/maps/search/?api=1&query=Coop+Graechen+Switzerland",
+ restaurants:"https://www.google.com/maps/search/?api=1&query=restaurants+Graechen+Switzerland"
+};
 
 export default function Page(){
  const [lang,setLang]=useState("de");
@@ -195,10 +207,22 @@ export default function Page(){
 
   <section id="enjoy" className="section">
    <span className="kicker">Local</span><h2>{t.enjoyTitle}</h2>
-   <div className="enjoyGrid">
-    <article><img src="/kitchen-wide.jpeg"/><div><Croissant/><h3>{t.bakery}</h3><p>{t.bakerytxt}</p></div></article>
-    <article><img src="/terrace.jpeg"/><div><ShoppingBasket/><h3>{t.coop}</h3><p>{t.cooptxt}</p></div></article>
-    <article><img src="/kitchen-bar.jpeg"/><div><UtensilsCrossed/><h3>{t.restaurants}</h3><p>{t.restauranttxt}</p></div></article>
+   <div className="localCards">
+    <article className="localCard">
+      <div className="localIcon"><Croissant/></div>
+      <div><h3>{t.bakery}</h3><p>{t.bakerytxt}</p>
+      <a href={mapLinks.bakery} target="_blank" rel="noreferrer"><Navigation size={17}/>{t.route}</a></div>
+    </article>
+    <article className="localCard">
+      <div className="localIcon"><ShoppingBasket/></div>
+      <div><h3>{t.coop}</h3><p>{t.cooptxt}</p>
+      <a href={mapLinks.coop} target="_blank" rel="noreferrer"><Navigation size={17}/>{t.route}</a></div>
+    </article>
+    <article className="localCard">
+      <div className="localIcon"><UtensilsCrossed/></div>
+      <div><h3>{t.restaurants}</h3><p>{t.restauranttxt}</p>
+      <a href={mapLinks.restaurants} target="_blank" rel="noreferrer"><Navigation size={17}/>{t.route}</a></div>
+    </article>
    </div>
   </section>
 
@@ -214,6 +238,10 @@ export default function Page(){
    </div>
   </section>
 
-  <footer><img src="/logo.png" alt="Chalet Michael"/><p>Salzgräbe · Riederstrasse 391 · 3925 Grächen · Wallis</p></footer>
+  <footer>
+    <img src="/logo.png" alt="Chalet Michael"/>
+    <p>Salzgräbe · Riederstrasse 391 · 3925 Grächen · Wallis</p>
+    <a className="managerLink" href="/manager"><LockKeyhole size={15}/>{t.manager}</a>
+  </footer>
  </main>
 }
