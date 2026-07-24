@@ -1,277 +1,80 @@
 "use client";
+import { useState } from "react";
+import { Car, KeyRound, PanelTopOpen, Droplets, Zap, Refrigerator, BedDouble, LogOut, CheckCircle2, FileDown, House } from "lucide-react";
 
-import { useEffect, useMemo, useState } from "react";
-import {
-  Droplets, Zap, ChevronDown, ChevronUp, CheckCircle2, LogOut,
-  BedDouble, Bath, Sofa, UtensilsCrossed, Trash2, Footprints,
-  Languages, AlertTriangle
-} from "lucide-react";
-import styles from "./Manager.module.css";
+const sections = [
+ {id:"arrival", icon:Car, title:"1. Ankommen", intro:"Parken, Schlüssel holen und das Chalet öffnen.",
+  steps:[
+   ["Parken","Bitte rechts neben der Garage parken. Dort befinden sich die Parkplätze für das Chalet."],
+   ["Schlüsselkasten","Vom Hauseingang links am Haus entlanggehen und zweimal um die Ecke, bis ihr die Terrasse erreicht. Dort hängt am Wasserabflussrohr ein Schlüsselkasten.","Code: 2901"],
+   ["Schlüssel","Im Schlüsselkasten findet ihr die Schlüssel für die Holzeingangstür und die Haupteingangstür. Anschließend das Haus aufschließen."]
+  ]},
+ {id:"open", icon:PanelTopOpen, title:"2. Fenster & Läden öffnen", intro:"Bitte vorsichtig vorgehen – die Fenster sind älter und teilweise schwergängig.",
+  steps:[
+   ["Holzläden entsichern","Von außen alle Holzläden rund ums Haus entsichern."],
+   ["Fenster öffnen","Von innen die Fenster im Ess- und Küchenbereich sowie im Bad-/Schlafzimmerbereich vorsichtig öffnen. Vorhänge vorher vollständig zur Seite ziehen, damit sie nicht eingeklemmt werden."],
+   ["Holzläden arretieren","Alle geöffneten Holzläden außen sicher arretieren."],
+   ["Wohnzimmer","Die Rollläden im Wohnzimmer können seitlich neben den Fenstern hochgezogen werden."]
+  ]},
+ {id:"activate", icon:Zap, title:"3. Haus in Betrieb nehmen", intro:"Wasser, Heizung, Warmwasser, Herd und Kühlschrank einschalten.",
+  steps:[
+   ["Hauptwasser","In den Keller in den Raum mit dem Warmwasserboiler gehen. Hinter dem Boiler befindet sich der Hauptwasserhahn an der Wand. Diesen vollständig öffnen."],
+   ["Sicherungskasten","Am Sicherungskasten im Keller einschalten: S1 – Heizung EIN · F18 – Warmwasserboiler EIN · F16 – Herd EIN."],
+   ["Kühlschrank","In der Küche den Kühlschrank einstecken und kurz kontrollieren, ob er läuft."]
+  ]},
+];
 
-const COPY = {
-  de: {
-    subtitle: "Chalet Manager",
-    intro: "Dieser Bereich ist für selbständigen Check-in und Check-out durch Chalet Manager, Familie und Freunde.",
-    arrival: "Ankunft – Chalet aktivieren",
-    arrivalIntro: "Bei Ankunft sind Hauptwasserhahn, Heizung, Herd und Warmwasserboiler ausgeschaltet.",
-    water: "1. Hauptwasser einschalten",
-    waterText: "Im Keller den Raum mit dem Warmwasserboiler aufsuchen. Hinter dem Warmwasserboiler befindet sich der Hauptwasserhahn an der Wand. Diesen vollständig aufdrehen.",
-    panel: "2. Sicherungskasten im Keller",
-    on: "EIN",
-    departure: "Haus verlassen – Checkliste",
-    departureIntro: "Bitte alle Punkte erledigen, bevor die Services ausgeschaltet werden.",
-    completed: "erledigt",
-    shutdown: "Haus stilllegen",
-    shutdownIntro: "Erst durchführen, wenn das Haus vollständig aufgeräumt und gereinigt ist.",
-    complete: "Chalet vollständig geschlossen",
-    reset: "Checkliste zurücksetzen",
-    guide: "Zurück zum Gästeguide",
-    logout: "Abmelden",
-    rooms: ["Alle Schlafzimmer","Bäder","Wohnzimmer","Küche","Müll","Flur & Treppenhaus"],
-    tasks: [
-      ["Betten abziehen","Staubsaugen und grobe Verschmutzungen nass reinigen","Fenster schließen und Fensterläden schließen","Heizungen ausschalten"],
-      ["Toiletten putzen (auch unter der Klobrille)","Waschbecken und Badewanne reinigen","Boden saugen/kehren und nass wischen","Fensterläden schließen"],
-      ["Kamin reinigen, Asche draußen entsorgen","Sofa absaugen, auch dahinter reinigen","Boden saugen","Rollläden herunterlassen","WLAN/Router ausstecken"],
-      ["Geschirr spülen (Töpfe, Geschirr, Spülmaschine)","Arbeitsflächen, Herd und Tisch abwischen","Boden saugen und nass wischen","Kühlschrank leeren, ausstecken und offen lassen","Geräte ausstecken (Wasserkocher, Kaffeemaschine)","Fensterläden schließen","Heizung auf ca. 10 °C stellen"],
-      ["Allen Müll entsorgen","Flaschen","Papier","Restmüll"],
-      ["Fegen","Groben Schmutz nass wischen","Fensterläden schließen"]
-    ],
-    shutdownItems: ["Hauptwasserhahn ZU","Waschmaschine ausstecken","Warmwasserboiler F18 AUS","Herd F16 AUS","Heizung S1 AUS (im Sommer)"]
-  },
-  en: {
-    subtitle: "Chalet Manager",
-    intro: "This area is for independent check-in and check-out by family and friends.",
-    arrival: "Arrival – activate the chalet",
-    arrivalIntro: "On arrival, the main water valve, heating, stove and hot-water boiler are switched off.",
-    water: "1. Turn on main water",
-    waterText: "In the basement, go to the room with the hot-water boiler. The main water valve is on the wall behind the boiler. Open it fully.",
-    panel: "2. Electrical panel in the basement",
-    on: "ON",
-    departure: "Leaving the House – Checklist",
-    departureIntro: "Please complete all items before switching off the services.",
-    completed: "completed",
-    shutdown: "Shut down the chalet",
-    shutdownIntro: "Only do this after the house has been fully tidied and cleaned.",
-    complete: "Chalet fully closed",
-    reset: "Reset checklist",
-    guide: "Back to guest guide",
-    logout: "Log out",
-    rooms: ["All Bedrooms","Bathrooms","Living Room","Kitchen","Waste","Hall & Stairs"],
-    tasks: [
-      ["Strip beds","Vacuum and wet-clean heavy dirt","Close windows and shutters","Turn off heaters"],
-      ["Clean toilets, including under the seat","Clean sink and bathtub","Vacuum/sweep and mop floor","Close shutters"],
-      ["Clean fireplace and dispose of ash outside","Vacuum sofa and clean behind it","Vacuum floor","Lower shutters","Unplug Wi-Fi/router"],
-      ["Wash dishes, pots and empty dishwasher","Wipe counters, stove and table","Vacuum and mop floor","Empty fridge, unplug and leave open","Unplug kettle and coffee machine","Close shutters","Set heating to about 10 °C"],
-      ["Dispose of all waste","Bottles","Paper","General waste"],
-      ["Sweep","Wet-clean heavy dirt","Close shutters"]
-    ],
-    shutdownItems: ["Main water valve CLOSED","Unplug washing machine","Hot-water boiler F18 OFF","Stove F16 OFF","Heating S1 OFF (in summer)"]
-  },
-  fr: {
-    subtitle: "Chalet Manager",
-    intro: "Cet espace est destiné à l’arrivée et au départ autonomes de la famille et des amis.",
-    arrival: "Arrivée – activer le chalet",
-    arrivalIntro: "À l’arrivée, l’arrivée d’eau principale, le chauffage, la cuisinière et le chauffe-eau sont coupés.",
-    water: "1. Ouvrir l’eau principale",
-    waterText: "Au sous-sol, allez dans la pièce avec le chauffe-eau. La vanne principale se trouve sur le mur derrière le chauffe-eau. Ouvrez-la complètement.",
-    panel: "2. Tableau électrique au sous-sol",
-    on: "ON",
-    departure: "Quitter la maison – Liste de contrôle",
-    departureIntro: "Veuillez terminer tous les points avant de couper les services.",
-    completed: "terminé",
-    shutdown: "Mettre le chalet hors service",
-    shutdownIntro: "À faire uniquement lorsque la maison est entièrement rangée et nettoyée.",
-    complete: "Chalet entièrement fermé",
-    reset: "Réinitialiser la liste",
-    guide: "Retour au guide",
-    logout: "Déconnexion",
-    rooms: ["Toutes les chambres","Salles de bain","Salon","Cuisine","Déchets","Couloir & Escalier"],
-    tasks: [
-      ["Retirer les draps des lits","Passer l’aspirateur et nettoyer les grosses saletés","Fermer les fenêtres et les volets","Éteindre les chauffages"],
-      ["Nettoyer les toilettes, y compris sous l’abattant","Nettoyer le lavabo et la baignoire","Passer l’aspirateur/balayer puis laver le sol","Fermer les volets"],
-      ["Nettoyer la cheminée et jeter les cendres dehors","Passer l’aspirateur sur le canapé et derrière","Passer l’aspirateur sur le sol","Baisser les volets","Débrancher le Wi-Fi/routeur"],
-      ["Laver la vaisselle, les casseroles et vider le lave-vaisselle","Essuyer les surfaces, la cuisinière et la table","Passer l’aspirateur et laver le sol","Vider le frigo, débrancher et laisser ouvert","Débrancher bouilloire et cafetière","Fermer les volets","Régler le chauffage à env. 10 °C"],
-      ["Jeter tous les déchets","Bouteilles","Papier","Déchets résiduels"],
-      ["Balayer","Nettoyer les grosses saletés à l’eau","Fermer les volets"]
-    ],
-    shutdownItems: ["Vanne d’eau principale FERMÉE","Débrancher le lave-linge","Chauffe-eau F18 OFF","Cuisinière F16 OFF","Chauffage S1 OFF (en été)"]
-  }
+const beds = [
+ ["EG – Schlafzimmer","Doppelbett 160 × 190 cm","Kissen und Decken vorhanden"],
+ ["1. OG – Hinten","1 Doppelbett oder 2 Einzelbetten",""],
+ ["1. OG – Familienzimmer","1 Doppelbett 140 × 200 cm","plus Stockbett: 1 Einzelbett unten + 1 Einzelbett oben"],
+ ["1. OG – Cosy Bedroom","2 Einzelbetten","Matratzenmaße noch zu ergänzen"]
+];
+
+const checkout = {
+ "Alle Schlafzimmer":["Betten abziehen","Staubsaugen und grobe Verschmutzungen nass reinigen","Fenster schließen und Fensterläden schließen","Heizungen ausschalten"],
+ "Bäder":["Toiletten putzen – auch unter der Klobrille","Waschbecken und Badewanne reinigen","Boden saugen/kehren und nass wischen","Fensterläden schließen"],
+ "Wohnzimmer":["Kamin reinigen, Asche draußen entsorgen","Sofa absaugen, auch dahinter reinigen","Boden saugen","Rollläden herunterlassen","WLAN/Router ausstecken"],
+ "Küche":["Geschirr spülen – Töpfe, Geschirr und Spülmaschine","Arbeitsflächen, Herd und Tisch abwischen","Boden saugen und nass wischen","Kühlschrank leeren, ausstecken und offen lassen","Wasserkocher und Kaffeemaschine ausstecken","Fensterläden schließen","Heizung auf ca. 10 °C stellen"],
+ "Müll":["Allen Müll entsorgen","Flaschen entsorgen","Papier entsorgen","Restmüll entsorgen"],
+ "Flur & Treppenhaus":["Fegen","Groben Schmutz nass wischen","Fensterläden schließen"]
 };
 
-const icons = [BedDouble, Bath, Sofa, UtensilsCrossed, Trash2, Footprints];
+const shutdown=["Hauptwasserhahn schließen","Waschmaschine ausstecken","Warmwasserboiler F18 AUS","Herd F16 AUS","Heizung S1 AUS – im Sommer","Kühlschrank leeren, ausstecken und Tür offen lassen","WLAN-Router ausstecken","Alle Fenster schließen","Holzläden schließen und sichern","Rollläden im Wohnzimmer herunterlassen"];
 
-export default function ManagerClient() {
-  const [lang, setLang] = useState("de");
-  const [checks, setChecks] = useState({});
-  const [open, setOpen] = useState(0);
-  const t = COPY[lang];
+export default function ManagerClient(){
+ const [done,setDone]=useState({});
+ const toggle=k=>setDone(v=>({...v,[k]:!v[k]}));
+ return <main className="manager">
+  <header className="managerHero">
+   <div><span>CHALET MICHAEL</span><h1>Chalet Manager</h1><p>Check-in & Check-out</p></div>
+   <div className="managerActions"><a href="/api/manager-pdf" target="_blank"><FileDown size={17}/>PDF Checkliste</a><a href="/"><House size={17}/>Gästeguide</a></div>
+  </header>
 
-  useEffect(() => {
-    try {
-      setChecks(JSON.parse(localStorage.getItem("cm-manager-checks") || "{}"));
-    } catch {}
-  }, []);
+  <nav className="managerNav">
+   {sections.map(s=><a href={"#"+s.id} key={s.id}>{s.title}</a>)}
+   <a href="#beds">4. Schlafzimmer & Betten</a><a href="#checkout">5. Abreise</a>
+  </nav>
 
-  const total = useMemo(
-    () => t.tasks.flat().length + t.shutdownItems.length,
-    [t]
-  );
-  const count = Object.values(checks).filter(Boolean).length;
+  {sections.map((s,si)=><section id={s.id} className="managerSection" key={s.id}>
+   <div className="sectionHead"><s.icon/><div><span>SCHRITT {si+1}</span><h2>{s.title}</h2><p>{s.intro}</p></div></div>
+   <div className="stepGrid">{s.steps.map(([h,p,b],i)=><article className="stepCard" key={h}><div className="stepNo">{i+1}</div><h3>{h}</h3><p>{p}</p>{b&&<strong className="codeBox">{b}</strong>}
+   {s.id==="activate"&&i===0&&<div className="photoPlaceholder">Foto: Hauptwasserhahn</div>}
+   {s.id==="activate"&&i===1&&<div className="photoPlaceholder">Foto: Sicherungskasten</div>}
+   </article>)}</div>
+  </section>)}
 
-  function toggle(key) {
-    setChecks((prev) => {
-      const next = { ...prev, [key]: !prev[key] };
-      localStorage.setItem("cm-manager-checks", JSON.stringify(next));
-      return next;
-    });
-  }
+  <section id="beds" className="managerSection alt">
+   <div className="sectionHead"><BedDouble/><div><span>SCHRITT 4</span><h2>Schlafzimmer & Betten</h2><p>Bettenkonfiguration für die Vorbereitung des Hauses.</p></div></div>
+   <div className="bedGrid">{beds.map(([room,bed,note])=><article key={room}><h3>{room}</h3><strong>{bed}</strong>{note&&<p>{note}</p>}</article>)}</div>
+  </section>
 
-  async function logout() {
-    await fetch("/api/manager-logout", { method: "POST" });
-    window.location.href = "/manager/login";
-  }
+  <section id="checkout" className="managerSection">
+   <div className="sectionHead"><LogOut/><div><span>SCHRITT 5</span><h2>Abreise</h2><p><b>Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.</b> Arbeitet die Checkliste vor der Abreise vollständig durch.</p></div></div>
+   <div className="checkGroups">{Object.entries(checkout).map(([group,tasks])=><article key={group}><h3>{group}</h3>{tasks.map((task,i)=>{const k=group+i;return <label className={done[k]?"checked":""} key={k}><input type="checkbox" checked={!!done[k]} onChange={()=>toggle(k)}/><CheckCircle2/>{task}</label>})}</article>)}</div>
 
-  return (
-    <main className={styles.manager}>
-      <header className={styles.header}>
-        <div>
-          <p className={styles.kicker}>Chalet Michael</p>
-          <h1>Chalet Manager</h1>
-          <p>{t.subtitle}</p>
-          <p className={styles.intro}>{t.intro}</p>
-        </div>
-        <div className={styles.langs}>
-          <Languages size={18} />
-          {["de","en","fr"].map((code) => (
-            <button
-              key={code}
-              className={lang === code ? styles.active : ""}
-              onClick={() => setLang(code)}
-            >
-              {code.toUpperCase()}
-            </button>
-          ))}
-        </div>
-      </header>
-
-      <section className={styles.section}>
-        <p className={styles.kicker}>Check-in</p>
-        <h2>{t.arrival}</h2>
-        <div className={styles.alert}>
-          <AlertTriangle />
-          <span>{t.arrivalIntro}</span>
-        </div>
-
-        <article className={styles.step}>
-          <div className={styles.stepTitle}><Droplets /><h3>{t.water}</h3></div>
-          <p>{t.waterText}</p>
-          <a href="/manager/main-water.jpeg" target="_blank" rel="noreferrer">
-            <img src="/manager/main-water.jpeg" alt="Hauptwasserhahn" />
-          </a>
-        </article>
-
-        <article className={styles.step}>
-          <div className={styles.stepTitle}><Zap /><h3>{t.panel}</h3></div>
-          <div className={styles.switchGrid}>
-            <strong>S1 <span>Heizung / Heating</span><b>{t.on}</b></strong>
-            <strong>F18 <span>Warmwasser / Boiler</span><b>{t.on}</b></strong>
-            <strong>F16 <span>Herd / Stove</span><b>{t.on}</b></strong>
-          </div>
-          <a href="/manager/electrical-panel.jpeg" target="_blank" rel="noreferrer">
-            <img src="/manager/electrical-panel.jpeg" alt="Sicherungskasten" />
-          </a>
-        </article>
-      </section>
-
-      <section className={styles.checklistArea}>
-        <div className={styles.section}>
-          <p className={styles.kicker}>Check-out</p>
-          <h2>{t.departure}</h2>
-          <p>{t.departureIntro}</p>
-
-          <div className={styles.progress}>
-            <div style={{ width: `${(count / total) * 100}%` }} />
-            <span>{count} / {total} {t.completed}</span>
-          </div>
-
-          {t.rooms.map((room, i) => {
-            const Icon = icons[i];
-            return (
-              <article className={styles.group} key={room}>
-                <button
-                  className={styles.groupHead}
-                  onClick={() => setOpen(open === i ? -1 : i)}
-                >
-                  <span><Icon />{room}</span>
-                  {open === i ? <ChevronUp /> : <ChevronDown />}
-                </button>
-
-                {open === i && (
-                  <div className={styles.items}>
-                    {t.tasks[i].map((item, j) => {
-                      const key = `c-${i}-${j}`;
-                      return (
-                        <label
-                          key={item}
-                          className={checks[key] ? styles.checked : ""}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={!!checks[key]}
-                            onChange={() => toggle(key)}
-                          />
-                          <span>{item}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                )}
-              </article>
-            );
-          })}
-
-          <section className={styles.shutdown}>
-            <h2>{t.shutdown}</h2>
-            <p>{t.shutdownIntro}</p>
-
-            {t.shutdownItems.map((item, i) => {
-              const key = `s-${i}`;
-              return (
-                <label
-                  key={item}
-                  className={checks[key] ? styles.checked : ""}
-                >
-                  <input
-                    type="checkbox"
-                    checked={!!checks[key]}
-                    onChange={() => toggle(key)}
-                  />
-                  <span>{item}</span>
-                </label>
-              );
-            })}
-
-            {t.shutdownItems.every((_, i) => checks[`s-${i}`]) && (
-              <div className={styles.closed}>
-                <CheckCircle2 /> {t.complete}
-              </div>
-            )}
-          </section>
-
-          <div className={styles.actions}>
-            <button
-              onClick={() => {
-                localStorage.removeItem("cm-manager-checks");
-                setChecks({});
-              }}
-            >
-              {t.reset}
-            </button>
-            <a href="/">{t.guide}</a>
-            <button onClick={logout}><LogOut size={16} />{t.logout}</button>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+   <div className="shutdown"><h2>Zum Schluss: Haus stilllegen</h2><p>Erst durchführen, wenn das Haus vollständig aufgeräumt und gereinigt ist.</p>
+   {shutdown.map((task,i)=>{const k="shutdown"+i;return <label className={done[k]?"checked":""} key={k}><input type="checkbox" checked={!!done[k]} onChange={()=>toggle(k)}/><CheckCircle2/>{task}</label>})}</div>
+  </section>
+ </main>
 }
