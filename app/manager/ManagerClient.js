@@ -39,7 +39,7 @@ const COPY = {
     shutdownItems: ["Hauptwasserhahn ZU","Waschmaschine ausstecken","Warmwasserboiler F18 AUS","Herd F16 AUS","Heizung S1 AUS (im Sommer)"]
   },
   en: {
-    subtitle: "Family & Friends",
+    subtitle: "Chalet Manager",
     intro: "This area is for independent check-in and check-out by family and friends.",
     arrival: "Arrival – activate the chalet",
     arrivalIntro: "On arrival, the main water valve, heating, stove and hot-water boiler are switched off.",
@@ -68,7 +68,7 @@ const COPY = {
     shutdownItems: ["Main water valve CLOSED","Unplug washing machine","Hot-water boiler F18 OFF","Stove F16 OFF","Heating S1 OFF (in summer)"]
   },
   fr: {
-    subtitle: "Famille & amis",
+    subtitle: "Chalet Manager",
     intro: "Cet espace est destiné à l’arrivée et au départ autonomes de la famille et des amis.",
     arrival: "Arrivée – activer le chalet",
     arrivalIntro: "À l’arrivée, l’arrivée d’eau principale, le chauffage, la cuisinière et le chauffe-eau sont coupés.",
