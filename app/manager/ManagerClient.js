@@ -59,8 +59,8 @@ export default function ManagerClient(){
   {sections.map((s,si)=><section id={s.id} className="managerSection" key={s.id}>
    <div className="sectionHead"><s.icon/><div><span>SCHRITT {si+1}</span><h2>{s.title}</h2><p>{s.intro}</p></div></div>
    <div className="stepGrid">{s.steps.map(([h,p,b],i)=><article className="stepCard" key={h}><div className="stepNo">{i+1}</div><h3>{h}</h3><p>{p}</p>{b&&<strong className="codeBox">{b}</strong>}
-   {s.id==="activate"&&i===0&&<div className="photoPlaceholder">Foto: Hauptwasserhahn</div>}
-   {s.id==="activate"&&i===1&&<div className="photoPlaceholder">Foto: Sicherungskasten</div>}
+   {s.id==="activate"&&i===0&&<img className="instructionPhoto" src="/main-water.jpeg" alt="Hauptwasserhahn im Boilerraum" />}
+   {s.id==="activate"&&i===1&&<img className="instructionPhoto" src="/electrical-panel.jpeg" alt="Sicherungskasten im Keller" />}
    </article>)}</div>
   </section>)}
 
