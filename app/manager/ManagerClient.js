@@ -10,8 +10,8 @@ import styles from "./Manager.module.css";
 
 const COPY = {
   de: {
-    subtitle: "Family & Friends",
-    intro: "Dieser Bereich ist für selbständigen Check-in und Check-out durch Familie und Freunde.",
+    subtitle: "Chalet Manager",
+    intro: "Dieser Bereich ist für selbständigen Check-in und Check-out durch Chalet Manager, Familie und Freunde.",
     arrival: "Ankunft – Chalet aktivieren",
     arrivalIntro: "Bei Ankunft sind Hauptwasserhahn, Heizung, Herd und Warmwasserboiler ausgeschaltet.",
     water: "1. Hauptwasser einschalten",
