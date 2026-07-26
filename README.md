@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 2.9
+# Gästeguide · Chalet Michael — Version 3.0
 
 Diese Version enthält nur noch eine Website:
 
@@ -23,6 +23,31 @@ Michael3925
 ```
 
 `CHALET_MANAGER_SECRET` sollte eine lange, zufällige Zeichenfolge sein.
+
+Optional können einzelne Gästelinks gesperrt werden:
+
+```text
+CHALET_REVOKED_INVITES
+```
+
+Hier werden die betreffenden Einladungs-IDs, durch Kommas getrennt, eingetragen.
+Danach muss die Website neu bereitgestellt werden.
+
+## Persönliche Gästelinks
+
+Nach der Anmeldung mit dem Hauptpasswort erscheint unten auf der Seite der Link
+`Gästelink erstellen`. Unter `/links` kann für jede Buchung ein persönlicher,
+zeitlich begrenzter Zugangslink erstellt werden:
+
+1. Name oder Bezeichnung der Buchung eintragen
+2. Ablaufdatum wählen
+3. Link erstellen
+4. Link kopieren oder direkt über WhatsApp, Telegram oder E-Mail teilen
+
+Beim Öffnen des Links wird der Gast automatisch angemeldet. Das Passwort muss
+nicht mitgeteilt werden. Nach dem Ablaufdatum funktioniert der Link nicht mehr.
+Die beim Erstellen angezeigte Einladungs-ID sollte für eine mögliche vorzeitige
+Sperrung aufbewahrt werden.
 
 ## Aufbau
 
@@ -64,4 +89,7 @@ Sie wird ausschließlich über die geschützte Route `/api/manager-pdf` ausgelie
 
 ## Installation
 
-Die vorhandenen Dateien im GitHub-Repository durch den Inhalt dieses Pakets ersetzen. Die beiden Vercel-Variablen müssen gesetzt bleiben. Danach neu deployen.
+Die vorhandenen Dateien im GitHub-Repository durch den Inhalt dieses Pakets
+ersetzen. Die beiden bestehenden Vercel-Variablen müssen gesetzt bleiben.
+`CHALET_REVOKED_INVITES` ist nur erforderlich, wenn ein Link vorzeitig gesperrt
+werden soll. Danach neu deployen.

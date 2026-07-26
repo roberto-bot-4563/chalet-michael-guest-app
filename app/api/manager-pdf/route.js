@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { authToken } from "../../manager/auth";
+import { validateInviteToken } from "../../auth/invite";
 import fs from "fs/promises";
 import path from "path";
 
@@ -10,7 +11,8 @@ export async function GET() {
   const cookieStore = await cookies();
   const current = cookieStore.get("cm_manager_auth")?.value;
   const expected = authToken();
-  if (!expected || current !== expected) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const invite = validateInviteToken(cookieStore.get("cm_guest_invite")?.value);
+  if ((!expected || current !== expected) && !invite) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const filePath = path.join(process.cwd(), "private", "Gaesteguide_komplett.pdf");
   const file = await fs.readFile(filePath);
   return new NextResponse(file, {

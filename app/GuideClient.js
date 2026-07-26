@@ -158,7 +158,7 @@ const shutdown = [
   "Alle Fenster schließen", "Holzläden schließen und sichern", "Rollläden im Wohnzimmer herunterlassen"
 ];
 
-export default function GuideClient() {
+export default function GuideClient({ isAdmin = false }) {
   const [lang, setLang] = useState("de");
   const [showPw, setShowPw] = useState(false);
   const [done, setDone] = useState({});
@@ -211,6 +211,6 @@ export default function GuideClient() {
       <div className="shutdown"><h2>{t.shutdown}</h2><p>{t.shutdownIntro}</p>{shutdown.map((task, i) => { const key = "shutdown" + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}</div>
     </section>
 
-    <footer><strong>Gästeguide · Chalet Michael</strong><div className="footerLinks"><a href="/api/manager-pdf" target="_blank"><FileDown size={15} />{t.pdf}</a></div><p>Salzgräbe · Riederstrasse 391 · 3925 Grächen · Wallis</p></footer>
+    <footer><strong>Gästeguide · Chalet Michael</strong><div className="footerLinks"><a href="/api/manager-pdf" target="_blank"><FileDown size={15} />{t.pdf}</a>{isAdmin && <a href="/links"><KeyRound size={15} />Gästelink erstellen</a>}</div><p>Salzgräbe · Riederstrasse 391 · 3925 Grächen · Wallis</p></footer>
   </main>;
 }
