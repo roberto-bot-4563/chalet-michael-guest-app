@@ -11,7 +11,7 @@ const TEXT = {
   de: {
     title: "Gästeguide", subtitle: "Chalet Michael", welcome: "Schön, dass ihr da seid.",
     intro: "Dieser Guide begleitet euch Schritt für Schritt - vom Ankommen und Öffnen des Hauses bis zum Check-out.",
-    nav: ["Anreise und Haus aufschließen", "Fensterläden öffnen", "Haus in Betrieb nehmen", "Im Chalet"],
+    nav: ["Anreise und Haus aufschließen", "Fensterläden öffnen", "Haus in Betrieb nehmen", "Im Chalet", "Check-out & Abreise"],
     arrival: "1. Anreise", address: "Adresse", parking: "Parken", keys: "Schlüssel holen", unlock: "Haus aufschließen",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Bitte rechts neben der Garage parken. Dort befinden sich die Parkplätze für das Chalet.",
@@ -40,9 +40,9 @@ const TEXT = {
     beds: "Schlafzimmer & Betten",
     bedItems: [
       ["EG - Schlafzimmer", "Doppelbett 160 × 190 cm", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. Auf keinen Fall ohne Bezüge benutzen!"],
-      ["1. OG - Hinten", "1 Doppelbett oder 2 Einzelbetten", ""],
-      ["1. OG - Familienzimmer", "1 Doppelbett 140 × 200 cm", "plus Stockbett: 1 Einzelbett unten und 1 Einzelbett oben"],
-      ["1. OG - Cosy Bedroom", "2 Einzelbetten", ""]
+      ["1. OG - Hinten", "1 Doppelbett (180 × 200 cm) oder 2 Einzelbetten (90 × 200 cm)", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden."],
+      ["1. OG - Familienzimmer", "1 Doppelbett (140 × 200 cm) und ein Stockbett", "1 Einzelbett unten und 1 Einzelbett oben, je 90 × 160 cm. Kissen (80 × 40 cm) und Decken (120 × 160 cm) vorhanden."],
+      ["1. OG - Cosy Bedroom", "2 Einzelbetten (90 × 200 cm)", "Kissen und Decken vorhanden."]
     ],
     departure: "5. Check-out & Abreise", departureIntro: "Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.",
     good: "Organisatorisches", goodItems: [
@@ -60,7 +60,7 @@ const TEXT = {
   en: {
     title: "Guest Guide", subtitle: "Chalet Michael", welcome: "It is lovely to have you here.",
     intro: "This guide takes you through your stay step by step - from arrival and opening the house to check-out.",
-    nav: ["Arrival and unlock the house", "Open the shutters", "Start the house services", "At the chalet"],
+    nav: ["Arrival and unlock the house", "Open the shutters", "Start the house services", "At the chalet", "Check-out & departure"],
     arrival: "1. Arrival", address: "Address", parking: "Parking", keys: "Collect the keys", unlock: "Unlock the house",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Please park to the right of the garage. These are the chalet parking spaces.",
@@ -88,9 +88,9 @@ const TEXT = {
     waste: "Waste & recycling", wasteText: "Please recycle glass and PET. Household waste goes into official orange bags. The recycling station is about 100 m down the road at the junction with the road to Grächen.",
     beds: "Bedrooms & beds", bedItems: [
       ["Ground floor bedroom", "Double bed 160 × 190 cm", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided. Please bring bed linen or arrange it in advance. Never use them without covers!"],
-      ["First floor - rear", "1 double bed or 2 single beds", ""],
-      ["First floor - family room", "1 double bed 140 × 200 cm", "plus bunk bed: one lower and one upper single"],
-      ["First floor - cosy bedroom", "2 single beds", ""]
+      ["First floor - rear", "1 double bed (180 × 200 cm) or 2 single beds (90 × 200 cm)", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided."],
+      ["First floor - family room", "1 double bed (140 × 200 cm) and a bunk bed", "One lower and one upper single bed, each 90 × 160 cm. Pillows (80 × 40 cm) and duvets (120 × 160 cm) are provided."],
+      ["First floor - cosy bedroom", "2 single beds (90 × 200 cm)", "Pillows and duvets are provided."]
     ],
     departure: "5. Check-out & departure", departureIntro: "Please leave the house as you found it.",
     good: "Practical information", goodItems: ["Non-smoking chalet", "No pets", "Bed linen and towels: Please bring your own or arrange in advance.", "Visitor tax: Normally CHF 3.80 per person per day (cash may be left in the preserving jar)."],
@@ -101,7 +101,7 @@ const TEXT = {
   fr: {
     title: "Guide des hôtes", subtitle: "Chalet Michael", welcome: "Nous sommes heureux de vous accueillir.",
     intro: "Ce guide vous accompagne étape par étape - de l'arrivée et l'ouverture de la maison jusqu'au départ.",
-    nav: ["Arrivée et ouverture de la maison", "Ouvrir les volets", "Mettre la maison en service", "Au chalet"],
+    nav: ["Arrivée et ouverture de la maison", "Ouvrir les volets", "Mettre la maison en service", "Au chalet", "Check-out et départ"],
     arrival: "1. Arrivée", address: "Adresse", parking: "Parking", keys: "Prendre les clés", unlock: "Ouvrir la maison",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Garez-vous à droite du garage, sur les places réservées au chalet.",
@@ -129,9 +129,9 @@ const TEXT = {
     waste: "Déchets & recyclage", wasteText: "Recyclez le verre et le PET. Utilisez les sacs orange officiels. La station se trouve à environ 100 m en descendant la route, au croisement vers Grächen.",
     beds: "Chambres & lits", bedItems: [
       ["Chambre au rez-de-chaussée", "Lit double 160 × 190 cm", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles. Merci d'apporter le linge de lit ou de convenir d'une solution à l'avance. Ne jamais les utiliser sans housses !"],
-      ["1er étage - arrière", "1 lit double ou 2 lits simples", ""],
-      ["1er étage - chambre familiale", "1 lit double 140 × 200 cm", "plus lits superposés"],
-      ["1er étage - chambre cosy", "2 lits simples", ""]
+      ["1er étage - arrière", "1 lit double (180 × 200 cm) ou 2 lits simples (90 × 200 cm)", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles."],
+      ["1er étage - chambre familiale", "1 lit double (140 × 200 cm) et un lit superposé", "Un lit simple en bas et un en haut, chacun de 90 × 160 cm. Oreillers (80 × 40 cm) et couettes (120 × 160 cm) disponibles."],
+      ["1er étage - chambre cosy", "2 lits simples (90 × 200 cm)", "Oreillers et couettes disponibles."]
     ],
     departure: "5. Check-out & départ", departureIntro: "Merci de laisser la maison comme vous l'avez trouvée.",
     good: "Informations pratiques", goodItems: ["Chalet non-fumeur", "Animaux non admis", "Linge et serviettes: Merci de les apporter ou de convenir d'une solution à l'avance.", "Taxe de séjour: En général CHF 3,80 par personne et par jour (à laisser en espèces dans le bocal)."],
@@ -178,7 +178,7 @@ export default function GuideClient({ isAdmin = false }) {
     </header>
 
     <section className="section arrived"><div><span className="kicker">Willkommen</span><h2>{t.welcome}</h2><p>{t.intro}</p></div><img src="/living-fireplace.jpeg" alt="Wohnzimmer" /></section>
-    <nav className="guideNav section">{[["#arrival", KeyRound], ["#open", PanelTopOpen], ["#activate", Zap], ["#chalet", House]].map(([href, Icon], i) => <a href={href} key={href}><Icon /><span>{t.nav[i]}</span></a>)}</nav>
+    <nav className="guideNav section">{[["#arrival", KeyRound], ["#open", PanelTopOpen], ["#activate", Zap], ["#chalet", House], ["#departure", LogOut]].map(([href, Icon], i) => <a href={href} key={href}><Icon /><span>{t.nav[i]}</span></a>)}</nav>
 
     <section id="arrival" className="section flowSection"><span className="kicker">01</span><h2>{t.arrival}</h2>
       <div className="timeline">

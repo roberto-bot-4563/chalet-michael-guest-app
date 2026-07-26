@@ -212,9 +212,9 @@ def manager_story():
     story += [Paragraph("Schlafzimmer & Betten", styles["H2Guide"])]
     for title, text in [
         ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. <b>Auf keinen Fall ohne Bezüge benutzen!</b>"),
-        ("1. OG - Hinten", "1 Doppelbett oder 2 Einzelbetten."),
-        ("1. OG - Familienzimmer", "1 Doppelbett 140 x 200 cm plus Stockbett: 1 Einzelbett unten und 1 Einzelbett oben."),
-        ("1. OG - Cosy Bedroom", "2 Einzelbetten."),
+        ("1. OG - Hinten", "1 Doppelbett (180 x 200 cm) oder 2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
+        ("1. OG - Familienzimmer", "1 Doppelbett (140 x 200 cm) und ein Stockbett: 1 Einzelbett unten und 1 Einzelbett oben, je 90 x 160 cm. Kissen (80 x 40 cm) und Decken (120 x 160 cm) vorhanden."),
+        ("1. OG - Cosy Bedroom", "2 Einzelbetten (90 x 200 cm). Kissen und Decken vorhanden."),
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 

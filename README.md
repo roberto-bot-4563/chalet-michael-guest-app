@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 3.1
+# Gästeguide · Chalet Michael — Version 3.2
 
 Diese Version enthält nur noch eine Website:
 
@@ -69,6 +69,7 @@ Die vier Schnellzugriffe entsprechen den Hauptabschnitten:
 2. Fensterläden öffnen
 3. Haus in Betrieb nehmen
 4. Im Chalet
+5. Check-out & Abreise
 
 ## Inhaltliche Änderungen
 
