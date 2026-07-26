@@ -29,7 +29,7 @@ const TEXT = {
     electricity: "Strom anschalten (Sicherungskasten)", electricityText: "Im Keller am Sicherungskasten einschalten: S1 - Heizung EIN · F18 - Warmwasserboiler EIN · F16 - Herd EIN.",
     water: "Hauptwasser öffnen", waterSteps: [
       ["Schritt 1 - Schlüssel holen", "Im Keller das Schlüsselkästchen mit Code 391 öffnen und nur den Schlüssel für den Heizungsraum entnehmen.", "Code: 391"],
-      ["Schritt 2 - Heizungsraum öffnen", "Mit dem Schlüssel den Heizungsraum öffnen.", ""],
+      ["Schritt 2 - Heizungsraum öffnen", "Mit dem Schlüssel den Heizungsraum öffnen: erste Tür links.", ""],
       ["Schritt 3 - Hauptwasser öffnen", "Hinter dem Warmwasserboiler befindet sich der Hauptwasserhahn an der Wand. Diesen vollständig öffnen.", ""]
     ],
     fridge: "Kühlschrank einschalten", fridgeText: "In der Küche den Kühlschrank einstecken und kurz kontrollieren, ob er läuft.",
@@ -42,7 +42,7 @@ const TEXT = {
     bedItems: [
       ["EG - Schlafzimmer", "Doppelbett 160 × 190 cm", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. Auf keinen Fall ohne Bezüge benutzen!"],
       ["1. OG - Honeymoon Suite (am Ende des Ganges)", "1 Doppelbett (180 × 200 cm) oder 2 Einzelbetten (90 × 200 cm)", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden."],
-      ["1. OG - Familienzimmer", "1 Doppelbett (140 × 200 cm) und ein Stockbett", "1 Einzelbett unten und 1 Einzelbett oben, je 90 × 160 cm. Kissen (80 × 40 cm) und Decken (120 × 160 cm) vorhanden."],
+      ["1. OG - Familienzimmer", "1 Doppelbett (140 × 200 cm). Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden.", "Zusätzlich 2 Stockbetten: 1 Einzelbett unten und 1 Einzelbett oben, je 90 × 160 cm. Kissen (80 × 40 cm) und Decken (120 × 160 cm) vorhanden."],
       ["1. OG - Cosy Bedroom", "2 Einzelbetten (90 × 200 cm)", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden."]
     ],
     departure: "5. Check-out & Abreise", departureIntro: "Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.",
@@ -53,9 +53,10 @@ const TEXT = {
       "Kurtaxe: CHF 3,80 pro Person und Tag (bitte bar im Einmachglas hinterlassen)."
     ],
     checkout: "Check-out", checkoutText: "Check-out ist bis 10:00 Uhr oder nach Absprache.",
-    bus: "Bus nach Grächen", busText: "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos.",
+    bus: "Bus nach Grächen", busText: "Die Haltestelle liegt an der Hauptstraße nach Grächen.",
     checklist: "Abreise-Checkliste", shutdown: "Zum Schluss: Haus stilllegen",
     shutdownIntro: "Erst durchführen, wenn das Haus vollständig aufgeräumt und gereinigt ist.",
+    finalLock: "Haus abschließen und Schlüssel im Schlüsselkasten (Code 2901) deponieren.",
     pdf: "Vollständiger Gästeguide als PDF"
   },
   en: {
@@ -79,7 +80,7 @@ const TEXT = {
     electricity: "Switch on electricity (panel)", electricityText: "In the basement switch on: S1 - heating · F18 - hot-water boiler · F16 - stove.",
     water: "Open the main water supply", waterSteps: [
       ["Step 1 - Get the key", "Open the basement key box with code 391 and take only the key for the heating room.", "Code: 391"],
-      ["Step 2 - Open the heating room", "Use the key to open the heating room.", ""],
+      ["Step 2 - Open the heating room", "Use the key to open the heating room: first door on the left.", ""],
       ["Step 3 - Open the main water valve", "The main water valve is on the wall behind the hot-water boiler. Open it fully.", ""]
     ],
     fridge: "Switch on the fridge", fridgeText: "Plug in the fridge in the kitchen and check that it is running.",
@@ -91,14 +92,15 @@ const TEXT = {
     beds: "Bedrooms & beds", bedItems: [
       ["Ground floor bedroom", "Double bed 160 × 190 cm", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided. Please bring bed linen or arrange it in advance. Never use them without covers!"],
       ["First floor - Honeymoon Suite (at the end of the hallway)", "1 double bed (180 × 200 cm) or 2 single beds (90 × 200 cm)", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided."],
-      ["First floor - family room", "1 double bed (140 × 200 cm) and a bunk bed", "One lower and one upper single bed, each 90 × 160 cm. Pillows (80 × 40 cm) and duvets (120 × 160 cm) are provided."],
+      ["First floor - family room", "1 double bed (140 × 200 cm). Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided.", "In addition, 2 bunk beds: one lower and one upper single bed, each 90 × 160 cm. Pillows (80 × 40 cm) and duvets (120 × 160 cm) are provided."],
       ["First floor - cosy bedroom", "2 single beds (90 × 200 cm)", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided."]
     ],
     departure: "5. Check-out & departure", departureIntro: "Please leave the house as you found it.",
     good: "Practical information", goodItems: ["Non-smoking chalet", "No pets", "Bed linen and towels: Please bring your own or arrange in advance.", "Visitor tax: CHF 3.80 per person per day (please leave cash in the preserving jar)."],
     checkout: "Check-out", checkoutText: "Check-out is by 10:00 am or by arrangement.",
-    bus: "Bus to Grächen", busText: "The stop is on the main road to Grächen. The bus is free for mountain-lift users.",
-    checklist: "Departure checklist", shutdown: "Finally: shut down the house", shutdownIntro: "Only do this once the house has been fully cleaned and tidied.", pdf: "Complete Guest Guide PDF"
+    bus: "Bus to Grächen", busText: "The stop is on the main road to Grächen.",
+    checklist: "Departure checklist", shutdown: "Finally: shut down the house", shutdownIntro: "Only do this once the house has been fully cleaned and tidied.",
+    finalLock: "Lock the house and return the keys to the key box (code 2901).", pdf: "Complete Guest Guide PDF"
   },
   fr: {
     title: "Guide des hôtes", subtitle: "Chalet Michael", welcome: "Nous sommes heureux de vous accueillir.",
@@ -121,7 +123,7 @@ const TEXT = {
     electricity: "Allumer l'électricité (tableau)", electricityText: "Au sous-sol, allumez: S1 - chauffage · F18 - chauffe-eau · F16 - cuisinière.",
     water: "Ouvrir l'eau principale", waterSteps: [
       ["Étape 1 - Prendre la clé", "Ouvrez le boîtier à clés du sous-sol avec le code 391 et prenez uniquement la clé du local de chauffage.", "Code: 391"],
-      ["Étape 2 - Ouvrir le local de chauffage", "Utilisez la clé pour ouvrir le local de chauffage.", ""],
+      ["Étape 2 - Ouvrir le local de chauffage", "Utilisez la clé pour ouvrir le local de chauffage: première porte à gauche.", ""],
       ["Étape 3 - Ouvrir l'arrivée d'eau", "Le robinet principal se trouve au mur derrière le chauffe-eau. Ouvrez-le complètement.", ""]
     ],
     fridge: "Brancher le réfrigérateur", fridgeText: "Branchez le réfrigérateur dans la cuisine et vérifiez qu'il fonctionne.",
@@ -133,14 +135,15 @@ const TEXT = {
     beds: "Chambres & lits", bedItems: [
       ["Chambre au rez-de-chaussée", "Lit double 160 × 190 cm", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles. Merci d'apporter le linge de lit ou de convenir d'une solution à l'avance. Ne jamais les utiliser sans housses !"],
       ["1er étage - Honeymoon Suite (au bout du couloir)", "1 lit double (180 × 200 cm) ou 2 lits simples (90 × 200 cm)", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles."],
-      ["1er étage - chambre familiale", "1 lit double (140 × 200 cm) et un lit superposé", "Un lit simple en bas et un en haut, chacun de 90 × 160 cm. Oreillers (80 × 40 cm) et couettes (120 × 160 cm) disponibles."],
+      ["1er étage - chambre familiale", "1 lit double (140 × 200 cm). Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles.", "En plus, 2 lits superposés: un lit simple en bas et un en haut, chacun de 90 × 160 cm. Oreillers (80 × 40 cm) et couettes (120 × 160 cm) disponibles."],
       ["1er étage - chambre cosy", "2 lits simples (90 × 200 cm)", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles."]
     ],
     departure: "5. Check-out & départ", departureIntro: "Merci de laisser la maison comme vous l'avez trouvée.",
     good: "Informations pratiques", goodItems: ["Chalet non-fumeur", "Animaux non admis", "Linge et serviettes: Merci de les apporter ou de convenir d'une solution à l'avance.", "Taxe de séjour: CHF 3,80 par personne et par jour (merci de laisser les espèces dans le bocal)."],
     checkout: "Check-out", checkoutText: "Départ avant 10h00 ou selon accord.",
-    bus: "Bus pour Grächen", busText: "L'arrêt se trouve sur la route principale vers Grächen. Le bus est gratuit pour les utilisateurs des remontées mécaniques.",
-    checklist: "Liste de départ", shutdown: "Enfin: arrêter la maison", shutdownIntro: "À faire uniquement lorsque la maison est propre et rangée.", pdf: "Guide complet PDF"
+    bus: "Bus pour Grächen", busText: "L'arrêt se trouve sur la route principale vers Grächen.",
+    checklist: "Liste de départ", shutdown: "Enfin: arrêter la maison", shutdownIntro: "À faire uniquement lorsque la maison est propre et rangée.",
+    finalLock: "Fermez la maison à clé et déposez les clés dans le boîtier à clés (code 2901).", pdf: "Guide complet PDF"
   }
 };
 
@@ -211,7 +214,7 @@ export default function GuideClient({ isAdmin = false }) {
       <div className="departureIntroGrid singleCard"><article className="lightCard"><Clock3 /><h3>{t.checkout}</h3><p>{t.checkoutText}</p></article></div>
       <h3 className="subsectionTitle"><CheckCircle2 />{t.checklist}</h3>
       <div className="checkGroups">{Object.entries(checklist.de).map(([group, tasks]) => <article key={group}><h3>{group}</h3>{tasks.map((task, i) => { const key = group + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}</article>)}</div>
-      <div className="shutdown"><h2>{t.shutdown}</h2><p>{t.shutdownIntro}</p>{shutdown.map((task, i) => { const key = "shutdown" + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}</div>
+      <div className="shutdown"><h2>{t.shutdown}</h2><p>{t.shutdownIntro}</p>{shutdown.map((task, i) => { const key = "shutdown" + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}<div className="finalLockBox"><KeyRound /><strong>{t.finalLock}</strong></div></div>
     </section>
 
     <footer><strong>Gästeguide · Chalet Michael</strong><div className="footerLinks"><a href="/api/manager-pdf" target="_blank"><FileDown size={15} />{t.pdf}</a>{isAdmin && <a href="/links"><KeyRound size={15} />Gästelink erstellen</a>}</div><p>Salzgräbe · Riederstrasse 391 · 3925 Grächen · Wallis</p></footer>

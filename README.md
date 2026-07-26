@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 3.3
+# Gästeguide · Chalet Michael — Version 3.4
 
 Diese Version enthält nur noch eine Website:
 
@@ -80,7 +80,7 @@ Die vier Schnellzugriffe entsprechen den Hauptabschnitten:
 - Filterkaffeemaschine ergänzt
 - Lage der Müll- und Recyclingstation ergänzt
 - Check-out: `bis 10:00 Uhr oder nach Absprache`
-- Bushaltestelle und kostenlose Nutzung für Bergbahnbenutzer ergänzt
+- Bushaltestelle an der Hauptstraße nach Grächen ergänzt
 - Bettwäsche und Handtücher: selber mitbringen oder nach Absprache
 - Kurtaxe: CHF 3,80 pro Person und Tag; Barzahlung im Einmachglas
 - Persönliche Ansprache in Deutsch, Englisch und Französisch

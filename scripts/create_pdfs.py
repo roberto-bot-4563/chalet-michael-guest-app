@@ -115,7 +115,7 @@ def public_story():
         ("Schlüssel", "Die Schlüsselübergabe bitte direkt mit Petra abstimmen."),
         ("Check-out", "Check-out ist bis 10:00 Uhr oder nach Absprache."),
         ("Parken", "Private Parkplätze befinden sich direkt am Chalet."),
-        ("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos."),
+        ("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen."),
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
@@ -189,7 +189,7 @@ def manager_story():
         Paragraph("<b>Schritt 1:</b> Im Keller das Schlüsselkästchen mit <b>Code 391</b> öffnen und nur den Schlüssel für den Heizungsraum entnehmen.", styles["BodyGuide"]),
         img(PUBLIC / "key-box.jpeg", 72 * mm, 74 * mm),
         PageBreak(),
-        Paragraph("<b>Schritt 2:</b> Mit dem Schlüssel den Heizungsraum öffnen.", styles["BodyGuide"]),
+        Paragraph("<b>Schritt 2:</b> Mit dem Schlüssel den Heizungsraum öffnen: erste Tür links.", styles["BodyGuide"]),
         img(PUBLIC / "boiler-room.jpeg", 88 * mm, 110 * mm),
         Spacer(1, 6 * mm),
         Paragraph("<b>Schritt 3:</b> Hinter dem Warmwasserboiler den Hauptwasserhahn an der Wand vollständig öffnen.", styles["BodyGuide"]),
@@ -214,14 +214,14 @@ def manager_story():
     for title, text in [
         ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. <b>Auf keinen Fall ohne Bezüge benutzen!</b>"),
         ("1. OG - Honeymoon Suite (am Ende des Ganges)", "1 Doppelbett (180 x 200 cm) oder 2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
-        ("1. OG - Familienzimmer", "1 Doppelbett (140 x 200 cm) und ein Stockbett: 1 Einzelbett unten und 1 Einzelbett oben, je 90 x 160 cm. Kissen (80 x 40 cm) und Decken (120 x 160 cm) vorhanden."),
+        ("1. OG - Familienzimmer", "1 Doppelbett (140 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden. Zusätzlich 2 Stockbetten: 1 Einzelbett unten und 1 Einzelbett oben, je 90 x 160 cm. Kissen (80 x 40 cm) und Decken (120 x 160 cm) vorhanden."),
         ("1. OG - Cosy Bedroom", "2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
     organizer = [Paragraph("Organisatorisches", styles["H2Guide"])]
     for item in [
-        "Bus nach Grächen: Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos.",
+        "Bus nach Grächen: Die Haltestelle liegt an der Hauptstraße nach Grächen.",
         "Nichtraucherhaus",
         "Keine Haustiere",
         "Bettwäsche und Handtücher: Bitte selber mitbringen oder nach Absprache.",
@@ -254,6 +254,7 @@ def manager_story():
         "Rollläden im Wohnzimmer herunterlassen"
     ]:
         story.append(Paragraph("□ " + task, styles["CheckGuide"]))
+    story += [Spacer(1, 8 * mm), card("ABSCHLUSS", "<b>Haus abschließen und Schlüssel im Schlüsselkasten (Code 2901) deponieren.</b>")]
     return story
 
 
