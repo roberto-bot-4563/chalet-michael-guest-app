@@ -11,7 +11,7 @@ const TEXT = {
   de: {
     title: "Gästeguide", subtitle: "Chalet Michael", welcome: "Schön, dass ihr da seid.",
     intro: "Dieser Guide begleitet euch Schritt für Schritt - vom Ankommen und Öffnen des Hauses bis zum Check-out.",
-    nav: ["Anreise", "Haus öffnen", "Im Chalet", "Check-out & Abreise"],
+    nav: ["Anreise und Haus aufschließen", "Fensterläden öffnen", "Haus in Betrieb nehmen", "Im Chalet"],
     arrival: "1. Anreise", address: "Adresse", parking: "Parken", keys: "Schlüssel holen", unlock: "Haus aufschließen",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Bitte rechts neben der Garage parken. Dort befinden sich die Parkplätze für das Chalet.",
@@ -39,7 +39,7 @@ const TEXT = {
     waste: "Müll & Recycling", wasteText: "Glas und PET bitte recyceln. Hausmüll gehört in die offiziellen orangefarbenen Säcke. Die Müll- und Recyclingstation liegt ca. 100 m die Straße hinunter, an der Kreuzung zur Straße nach Grächen.",
     beds: "Schlafzimmer & Betten",
     bedItems: [
-      ["EG - Schlafzimmer", "Doppelbett 160 × 190 cm", "Kissen und Decken vorhanden"],
+      ["EG - Schlafzimmer", "Doppelbett 160 × 190 cm", "Zwei Kissen (80 × 40 cm) und zwei Decken (140 × 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. Auf keinen Fall ohne Bezüge benutzen!"],
       ["1. OG - Hinten", "1 Doppelbett oder 2 Einzelbetten", ""],
       ["1. OG - Familienzimmer", "1 Doppelbett 140 × 200 cm", "plus Stockbett: 1 Einzelbett unten und 1 Einzelbett oben"],
       ["1. OG - Cosy Bedroom", "2 Einzelbetten", ""]
@@ -60,7 +60,7 @@ const TEXT = {
   en: {
     title: "Guest Guide", subtitle: "Chalet Michael", welcome: "It is lovely to have you here.",
     intro: "This guide takes you through your stay step by step - from arrival and opening the house to check-out.",
-    nav: ["Arrival", "Open the house", "At the chalet", "Check-out & departure"],
+    nav: ["Arrival and unlock the house", "Open the shutters", "Start the house services", "At the chalet"],
     arrival: "1. Arrival", address: "Address", parking: "Parking", keys: "Collect the keys", unlock: "Unlock the house",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Please park to the right of the garage. These are the chalet parking spaces.",
@@ -87,7 +87,7 @@ const TEXT = {
     heat: "Heating", heatText: "When leaving, set all electric radiators to about 7 °C. Switch off bathroom underfloor heating and towel heaters.",
     waste: "Waste & recycling", wasteText: "Please recycle glass and PET. Household waste goes into official orange bags. The recycling station is about 100 m down the road at the junction with the road to Grächen.",
     beds: "Bedrooms & beds", bedItems: [
-      ["Ground floor", "Double bed 160 × 190 cm", "Pillows and duvets provided"],
+      ["Ground floor bedroom", "Double bed 160 × 190 cm", "Two pillows (80 × 40 cm) and two duvets (140 × 200 cm) are provided. Please bring bed linen or arrange it in advance. Never use them without covers!"],
       ["First floor - rear", "1 double bed or 2 single beds", ""],
       ["First floor - family room", "1 double bed 140 × 200 cm", "plus bunk bed: one lower and one upper single"],
       ["First floor - cosy bedroom", "2 single beds", ""]
@@ -101,7 +101,7 @@ const TEXT = {
   fr: {
     title: "Guide des hôtes", subtitle: "Chalet Michael", welcome: "Nous sommes heureux de vous accueillir.",
     intro: "Ce guide vous accompagne étape par étape - de l'arrivée et l'ouverture de la maison jusqu'au départ.",
-    nav: ["Arrivée", "Ouvrir la maison", "Au chalet", "Départ"],
+    nav: ["Arrivée et ouverture de la maison", "Ouvrir les volets", "Mettre la maison en service", "Au chalet"],
     arrival: "1. Arrivée", address: "Adresse", parking: "Parking", keys: "Prendre les clés", unlock: "Ouvrir la maison",
     addressText: "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen",
     parkingText: "Garez-vous à droite du garage, sur les places réservées au chalet.",
@@ -128,7 +128,7 @@ const TEXT = {
     heat: "Chauffage", heatText: "Au départ, réglez les radiateurs électriques à environ 7 °C. Éteignez le chauffage au sol et les sèche-serviettes.",
     waste: "Déchets & recyclage", wasteText: "Recyclez le verre et le PET. Utilisez les sacs orange officiels. La station se trouve à environ 100 m en descendant la route, au croisement vers Grächen.",
     beds: "Chambres & lits", bedItems: [
-      ["Rez-de-chaussée", "Lit double 160 × 190 cm", "Oreillers et couettes disponibles"],
+      ["Chambre au rez-de-chaussée", "Lit double 160 × 190 cm", "Deux oreillers (80 × 40 cm) et deux couettes (140 × 200 cm) sont disponibles. Merci d'apporter le linge de lit ou de convenir d'une solution à l'avance. Ne jamais les utiliser sans housses !"],
       ["1er étage - arrière", "1 lit double ou 2 lits simples", ""],
       ["1er étage - chambre familiale", "1 lit double 140 × 200 cm", "plus lits superposés"],
       ["1er étage - chambre cosy", "2 lits simples", ""]
@@ -173,12 +173,12 @@ export default function GuideClient({ isAdmin = false }) {
   return <main>
     <header className="guideHero">
       <img src="/chalet-front.jpeg" alt="Chalet Michael" /><div className="guideShade" />
-      <div className="guideTop"><span className="wordmark">Chalet Michael</span><div className="langs">{["de", "en", "fr"].map(code => <button key={code} className={lang === code ? "active" : ""} onClick={() => setLang(code)}>{code.toUpperCase()}</button>)}</div></div>
+      <div className="guideTop"><div /><div className="langs">{["de", "en", "fr"].map(code => <button key={code} className={lang === code ? "active" : ""} onClick={() => setLang(code)}>{code.toUpperCase()}</button>)}</div></div>
       <div className="guideHeroText"><span>{t.subtitle}</span><h1>{t.title}</h1></div>
     </header>
 
     <section className="section arrived"><div><span className="kicker">Willkommen</span><h2>{t.welcome}</h2><p>{t.intro}</p></div><img src="/living-fireplace.jpeg" alt="Wohnzimmer" /></section>
-    <nav className="guideNav section">{[["#arrival", MapPin], ["#open", KeyRound], ["#chalet", House], ["#departure", LogOut]].map(([href, Icon], i) => <a href={href} key={href}><Icon /><span>{t.nav[i]}</span></a>)}</nav>
+    <nav className="guideNav section">{[["#arrival", KeyRound], ["#open", PanelTopOpen], ["#activate", Zap], ["#chalet", House]].map(([href, Icon], i) => <a href={href} key={href}><Icon /><span>{t.nav[i]}</span></a>)}</nav>
 
     <section id="arrival" className="section flowSection"><span className="kicker">01</span><h2>{t.arrival}</h2>
       <div className="timeline">
@@ -196,16 +196,17 @@ export default function GuideClient({ isAdmin = false }) {
       <article className="stepCard"><div className="stepNo">3</div><h3>{t.fridge}</h3><p>{t.fridgeText}</p></article>
     </section>
 
-    <section id="chalet" className="darkSection"><div className="section"><span className="kicker">04</span><h2>{t.chalet}</h2>
+    <section id="chalet" className="chaletSection"><div className="section"><span className="kicker">04</span><h2>{t.chalet}</h2>
       <div className="guideGrid"><article className="infoCard wifiCard"><Wifi /><div><h3>{t.wifi}</h3><p><b>{t.network}:</b> Chalet Michael</p><p><b>{t.password}:</b> {showPw ? "Stgt_4563" : "•••••••••"}</p><button onClick={() => setShowPw(!showPw)}>{showPw ? t.hide : t.show}</button></div></article>
         {[[Coffee, t.kitchen, t.kitchenText], [Flame, t.fire, t.fireText], [Heater, t.heat, t.heatText], [Trash2, t.waste, t.wasteText]].map(([Icon, title, text]) => <article className="infoCard" key={title}><Icon /><h3>{title}</h3><p>{text}</p></article>)}
       </div>
       <h3 className="subsectionTitle"><BedDouble />{t.beds}</h3><div className="bedGrid">{t.bedItems.map(([room, bed, note]) => <article key={room}><h3>{room}</h3><strong>{bed}</strong>{note && <p>{note}</p>}</article>)}</div>
+      <div className="chaletPractical"><article className="lightCard"><Bus /><h3>{t.bus}</h3><p>{t.busText}</p></article></div>
+      <h3 className="subsectionTitle"><ShieldCheck />{t.good}</h3><div className="organizerGrid">{t.goodItems.map(item => <p key={item}><ShieldCheck size={18} />{item}</p>)}</div>
     </div></section>
 
     <section id="departure" className="managerSection departureSection"><div className="sectionHead"><LogOut /><div><span>05</span><h2>{t.departure}</h2><p>{t.departureIntro}</p></div></div>
-      <div className="departureIntroGrid"><article className="lightCard"><Clock3 /><h3>{t.checkout}</h3><p>{t.checkoutText}</p></article><article className="lightCard"><Bus /><h3>{t.bus}</h3><p>{t.busText}</p></article></div>
-      <h3 className="subsectionTitle"><ShieldCheck />{t.good}</h3><div className="organizerGrid">{t.goodItems.map(item => <p key={item}><ShieldCheck size={18} />{item}</p>)}</div>
+      <div className="departureIntroGrid singleCard"><article className="lightCard"><Clock3 /><h3>{t.checkout}</h3><p>{t.checkoutText}</p></article></div>
       <h3 className="subsectionTitle"><CheckCircle2 />{t.checklist}</h3>
       <div className="checkGroups">{Object.entries(checklist.de).map(([group, tasks]) => <article key={group}><h3>{group}</h3>{tasks.map((task, i) => { const key = group + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}</article>)}</div>
       <div className="shutdown"><h2>{t.shutdown}</h2><p>{t.shutdownIntro}</p>{shutdown.map((task, i) => { const key = "shutdown" + i; return <label className={done[key] ? "checked" : ""} key={key}><input type="checkbox" checked={!!done[key]} onChange={() => toggle(key)} /><CheckCircle2 />{task}</label>; })}</div>

@@ -211,25 +211,26 @@ def manager_story():
 
     story += [Paragraph("Schlafzimmer & Betten", styles["H2Guide"])]
     for title, text in [
-        ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Kissen und Decken vorhanden."),
+        ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. <b>Auf keinen Fall ohne Bezüge benutzen!</b>"),
         ("1. OG - Hinten", "1 Doppelbett oder 2 Einzelbetten."),
         ("1. OG - Familienzimmer", "1 Doppelbett 140 x 200 cm plus Stockbett: 1 Einzelbett unten und 1 Einzelbett oben."),
         ("1. OG - Cosy Bedroom", "2 Einzelbetten."),
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
-    story += [Paragraph("5", styles["KickerGuide"]), Paragraph("Check-out & Abreise", styles["H1Guide"]),
-              card("Check-out", "Check-out ist bis 10:00 Uhr oder nach Absprache."), Spacer(1, 4 * mm),
-              card("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos."), Spacer(1, 7 * mm),
-              Paragraph("Organisatorisches", styles["H2Guide"])]
+    story += [card("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos."), Spacer(1, 7 * mm)]
+    organizer = [Paragraph("Organisatorisches", styles["H2Guide"])]
     for item in [
         "Nichtraucherhaus",
         "Keine Haustiere",
         "Bettwäsche und Handtücher: Bitte selber mitbringen oder nach Absprache.",
         "Kurtaxe: Normalerweise CHF 3,80 pro Person und Tag (kann bar im Einmachglas hinterlassen werden).",
     ]:
-        story.append(Paragraph("• " + item, styles["BodyGuide"]))
-    story += [Spacer(1, 5 * mm), Paragraph("<b>Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.</b>", styles["BodyGuide"]),
+        organizer.append(Paragraph("• " + item, styles["BodyGuide"]))
+    story.append(KeepTogether(organizer))
+    story += [Spacer(1, 8 * mm), Paragraph("5", styles["KickerGuide"]), Paragraph("Check-out & Abreise", styles["H1Guide"]),
+              card("Check-out", "Check-out ist bis 10:00 Uhr oder nach Absprache."), Spacer(1, 5 * mm),
+              Paragraph("<b>Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.</b>", styles["BodyGuide"]),
               Paragraph("Abreise-Checkliste", styles["H2Guide"])]
     groups = {
         "Alle Schlafzimmer": ["Betten abziehen", "Staubsaugen und grobe Verschmutzungen nass reinigen", "Fenster und Fensterläden schließen", "Heizungen ausschalten"],

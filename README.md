@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 3.0
+# Gästeguide · Chalet Michael — Version 3.1
 
 Diese Version enthält nur noch eine Website:
 
@@ -61,7 +61,14 @@ Die gesamte Seite und PDF folgen jetzt demselben chronologischen Ablauf:
 
 Die Bereiche `In der Region` und `Petra` wurden vollständig entfernt. `Gut zu wissen`
 ist kein eigener Abschnitt mehr; die vier Hinweise stehen nun als
-`Organisatorisches` unter `Check-out & Abreise`.
+`Organisatorisches` unter `Im Chalet`.
+
+Die vier Schnellzugriffe entsprechen den Hauptabschnitten:
+
+1. Anreise und Haus aufschließen
+2. Fensterläden öffnen
+3. Haus in Betrieb nehmen
+4. Im Chalet
 
 ## Inhaltliche Änderungen
 
