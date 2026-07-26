@@ -143,11 +143,25 @@ def public_story():
 
 
 def manager_story():
-    story = [PageBreak(), Paragraph("GESCHÜTZTER BEREICH", styles["KickerGuide"]), Paragraph("Chalet Manager", styles["H1Guide"]),
-             Paragraph("Ankommen, Haus in Betrieb nehmen und bei der Abreise wieder sicher stilllegen.", styles["BodyGuide"])]
+    cover = Table([
+        [img(PUBLIC / "chalet-front.jpeg", 174 * mm, 106 * mm)],
+        [Paragraph("CHALET MICHAEL", styles["CoverSub"])],
+        [Paragraph("Gästeguide", styles["TitleGuide"])],
+        [Paragraph("Ankommen · Einrichten · Aufenthalt · Abreise", styles["BodyWhite"])]
+    ], colWidths=[174 * mm], style=TableStyle([
+        ("BACKGROUND", (0, 1), (0, -1), INK),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 1), (0, 1), 14),
+        ("TOPPADDING", (0, 2), (0, 2), 4),
+        ("BOTTOMPADDING", (0, -1), (0, -1), 16),
+    ]))
+    story = [Spacer(1, 10 * mm), cover, PageBreak()]
 
-    story += section_heading("1", "Ankommen")
+    story += section_heading("1", "Anreise")
     for title, text in [
+        ("Adresse", "Chalet Michael · Salzgräbe · Riederstrasse 391 · 3925 Grächen"),
         ("Parken", "Bitte rechts neben der Garage parken."),
         ("Schlüsselkasten am Haus", "Vom Hauseingang links am Haus entlanggehen und zweimal um die Ecke bis zur Terrasse. Dort hängt am Wasserabflussrohr ein Schlüsselkasten. <b>Code: 2901</b>."),
         ("Haus aufschließen", "Im Schlüsselkasten findet ihr die Schlüssel für die Holzeingangstür und die Haupteingangstür."),
@@ -185,7 +199,17 @@ def manager_story():
         PageBreak()
     ]
 
-    story += section_heading("4", "Schlafzimmer & Betten")
+    story += section_heading("4", "Im Chalet")
+    for title, text in [
+        ("WLAN", "<b>Netzwerk:</b> Chalet Michael<br/><b>Passwort:</b> Stgt_4563"),
+        ("Küche", "Eine Nespresso-Kaffeemaschine mit separatem Milchaufschäumer und eine Filterkaffeemaschine sind vorhanden."),
+        ("Kamin", "Lasst das Feuer nie unbeaufsichtigt. Vor dem Schlafengehen bitte vollständig löschen; falls nötig mit Wasser."),
+        ("Heizung", "Bei der Abreise alle Elektroheizkörper auf ca. 7 °C stellen. Fußbodenheizungen und Handtuchheizungen ausschalten."),
+        ("Müll & Recycling", "Glas und PET bitte recyceln. Hausmüll gehört in die offiziellen orangefarbenen Säcke. Die Station liegt ca. 100 m die Straße hinunter, an der Kreuzung zur Straße nach Grächen."),
+    ]:
+        story += [card(title, text), Spacer(1, 4 * mm)]
+
+    story += [Paragraph("Schlafzimmer & Betten", styles["H2Guide"])]
     for title, text in [
         ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Kissen und Decken vorhanden."),
         ("1. OG - Hinten", "1 Doppelbett oder 2 Einzelbetten."),
@@ -194,8 +218,19 @@ def manager_story():
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
-    story += [Paragraph("5", styles["KickerGuide"]), Paragraph("Abreise", styles["H1Guide"]),
-              Paragraph("<b>Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.</b>", styles["BodyGuide"])]
+    story += [Paragraph("5", styles["KickerGuide"]), Paragraph("Check-out & Abreise", styles["H1Guide"]),
+              card("Check-out", "Check-out ist bis 10:00 Uhr oder nach Absprache."), Spacer(1, 4 * mm),
+              card("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos."), Spacer(1, 7 * mm),
+              Paragraph("Organisatorisches", styles["H2Guide"])]
+    for item in [
+        "Nichtraucherhaus",
+        "Keine Haustiere",
+        "Bettwäsche und Handtücher: Bitte selber mitbringen oder nach Absprache.",
+        "Kurtaxe: Normalerweise CHF 3,80 pro Person und Tag (kann bar im Einmachglas hinterlassen werden).",
+    ]:
+        story.append(Paragraph("• " + item, styles["BodyGuide"]))
+    story += [Spacer(1, 5 * mm), Paragraph("<b>Bitte hinterlasst das Haus so, wie ihr es vorgefunden habt.</b>", styles["BodyGuide"]),
+              Paragraph("Abreise-Checkliste", styles["H2Guide"])]
     groups = {
         "Alle Schlafzimmer": ["Betten abziehen", "Staubsaugen und grobe Verschmutzungen nass reinigen", "Fenster und Fensterläden schließen", "Heizungen ausschalten"],
         "Bäder": ["Toiletten putzen - auch unter der Klobrille", "Waschbecken und Badewanne reinigen", "Boden saugen/kehren und nass wischen", "Fensterläden schließen"],
@@ -227,8 +262,6 @@ def build(path, story):
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
 
 
-build(PUBLIC / "Gaesteguide.pdf", public_story())
-build(PRIVATE / "Gaesteguide_komplett.pdf", public_story() + manager_story())
-build(OUT / "Gaesteguide.pdf", public_story())
-build(OUT / "Gaesteguide_komplett.pdf", public_story() + manager_story())
+build(PRIVATE / "Gaesteguide_komplett.pdf", manager_story())
+build(OUT / "Gaesteguide_komplett.pdf", manager_story())
 print("PDFs created")

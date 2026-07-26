@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 2.8
+# Gästeguide · Chalet Michael — Version 2.9
 
 Diese Version enthält nur noch eine Website:
 
@@ -23,6 +23,20 @@ Michael3925
 ```
 
 `CHALET_MANAGER_SECRET` sollte eine lange, zufällige Zeichenfolge sein.
+
+## Aufbau
+
+Die gesamte Seite und PDF folgen jetzt demselben chronologischen Ablauf:
+
+1. Anreise: Adresse, Parken, Schlüssel, Schlüsselkasten, Aufschließen
+2. Fenster und Läden öffnen
+3. Haus in Betrieb nehmen
+4. Im Chalet und Schlafzimmer
+5. Check-out, Abreisecheckliste und Haus stilllegen
+
+Die Bereiche `In der Region` und `Petra` wurden vollständig entfernt. `Gut zu wissen`
+ist kein eigener Abschnitt mehr; die vier Hinweise stehen nun als
+`Organisatorisches` unter `Check-out & Abreise`.
 
 ## Inhaltliche Änderungen
 
