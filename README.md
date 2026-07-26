@@ -1,4 +1,4 @@
-# Gästeguide · Chalet Michael — Version 3.2
+# Gästeguide · Chalet Michael — Version 3.3
 
 Diese Version enthält nur noch eine Website:
 

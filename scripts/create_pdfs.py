@@ -99,7 +99,7 @@ def public_story():
     story += [
         card("WLAN", "<b>Netzwerk:</b> Chalet Michael<br/><b>Passwort:</b> Stgt_4563"),
         Spacer(1, 4 * mm),
-        card("Küche", "Eine Nespresso-Kaffeemaschine mit separatem Milchaufschäumer und eine Filterkaffeemaschine sind vorhanden."),
+        card("Küche", "Eine Nespresso-Kaffeemaschine und ein separater Milchaufschäumer sind vorhanden. Alternativ befindet sich eine Filterkaffeemaschine im Regal unter der Kellertreppe."),
         Spacer(1, 4 * mm),
         card("Kamin", "Lasst das Feuer nie unbeaufsichtigt. Vor dem Schlafengehen bitte vollständig löschen; falls nötig mit Wasser. Feuerholz bekommt ihr im Supermarkt."),
         Spacer(1, 4 * mm),
@@ -136,7 +136,7 @@ def public_story():
         "Nichtraucherhaus",
         "Keine Haustiere",
         "Bettwäsche und Handtücher: Bitte selber mitbringen oder nach Absprache.",
-        "Kurtaxe: Normalerweise CHF 3,80 pro Person und Tag (kann bar im Einmachglas hinterlassen werden).",
+        "Kurtaxe: CHF 3,80 pro Person und Tag (bitte bar im Einmachglas hinterlassen).",
     ]:
         story.append(Paragraph("• " + item, styles["BodyGuide"]))
     return story
@@ -168,12 +168,13 @@ def manager_story():
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
-    story += [Paragraph("2", styles["KickerGuide"]), Paragraph("Fenster & Läden öffnen", styles["H1Guide"])]
+    story += [Paragraph("2", styles["KickerGuide"]), Paragraph("Fensterläden öffnen", styles["H1Guide"])]
     for text in [
         "Von außen alle Holzläden rund ums Haus entsichern.",
         "Von innen die Fenster im Ess- und Küchenbereich sowie im Bad-/Schlafzimmerbereich vorsichtig öffnen. Vorhänge vorher vollständig zur Seite ziehen.",
         "Alle geöffneten Holzläden außen sicher arretieren.",
         "Die Rollläden im Wohnzimmer seitlich neben den Fenstern hochziehen.",
+        "Die Balkontür mit dem Knopf am Türgriff entriegeln (herausziehen) und verriegeln (hineindrücken).",
     ]:
         story.append(Paragraph("□ " + text, styles["CheckGuide"]))
     story.append(PageBreak())
@@ -185,10 +186,10 @@ def manager_story():
         img(PUBLIC / "electrical-panel.jpeg", 150 * mm, 92 * mm),
         Spacer(1, 7 * mm),
         Paragraph("2. Hauptwasser öffnen", styles["H2Guide"]),
-        Paragraph("<b>Schritt 1:</b> Im Keller das Schlüsselkästchen mit <b>Code 391</b> öffnen und den Schlüssel für den Aufbewahrungs- und Boilerraum entnehmen.", styles["BodyGuide"]),
+        Paragraph("<b>Schritt 1:</b> Im Keller das Schlüsselkästchen mit <b>Code 391</b> öffnen und nur den Schlüssel für den Heizungsraum entnehmen.", styles["BodyGuide"]),
         img(PUBLIC / "key-box.jpeg", 72 * mm, 74 * mm),
         PageBreak(),
-        Paragraph("<b>Schritt 2:</b> Mit dem Schlüssel den Boilerraum öffnen.", styles["BodyGuide"]),
+        Paragraph("<b>Schritt 2:</b> Mit dem Schlüssel den Heizungsraum öffnen.", styles["BodyGuide"]),
         img(PUBLIC / "boiler-room.jpeg", 88 * mm, 110 * mm),
         Spacer(1, 6 * mm),
         Paragraph("<b>Schritt 3:</b> Hinter dem Warmwasserboiler den Hauptwasserhahn an der Wand vollständig öffnen.", styles["BodyGuide"]),
@@ -202,7 +203,7 @@ def manager_story():
     story += section_heading("4", "Im Chalet")
     for title, text in [
         ("WLAN", "<b>Netzwerk:</b> Chalet Michael<br/><b>Passwort:</b> Stgt_4563"),
-        ("Küche", "Eine Nespresso-Kaffeemaschine mit separatem Milchaufschäumer und eine Filterkaffeemaschine sind vorhanden."),
+        ("Küche", "Eine Nespresso-Kaffeemaschine und ein separater Milchaufschäumer sind vorhanden. Alternativ befindet sich eine Filterkaffeemaschine im Regal unter der Kellertreppe."),
         ("Kamin", "Lasst das Feuer nie unbeaufsichtigt. Vor dem Schlafengehen bitte vollständig löschen; falls nötig mit Wasser."),
         ("Heizung", "Bei der Abreise alle Elektroheizkörper auf ca. 7 °C stellen. Fußbodenheizungen und Handtuchheizungen ausschalten."),
         ("Müll & Recycling", "Glas und PET bitte recyceln. Hausmüll gehört in die offiziellen orangefarbenen Säcke. Die Station liegt ca. 100 m die Straße hinunter, an der Kreuzung zur Straße nach Grächen."),
@@ -212,21 +213,21 @@ def manager_story():
     story += [Paragraph("Schlafzimmer & Betten", styles["H2Guide"])]
     for title, text in [
         ("EG - Schlafzimmer", "Doppelbett 160 x 190 cm. Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden. Bitte Bettwäsche mitbringen oder nach Absprache. <b>Auf keinen Fall ohne Bezüge benutzen!</b>"),
-        ("1. OG - Hinten", "1 Doppelbett (180 x 200 cm) oder 2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
+        ("1. OG - Honeymoon Suite (am Ende des Ganges)", "1 Doppelbett (180 x 200 cm) oder 2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
         ("1. OG - Familienzimmer", "1 Doppelbett (140 x 200 cm) und ein Stockbett: 1 Einzelbett unten und 1 Einzelbett oben, je 90 x 160 cm. Kissen (80 x 40 cm) und Decken (120 x 160 cm) vorhanden."),
-        ("1. OG - Cosy Bedroom", "2 Einzelbetten (90 x 200 cm). Kissen und Decken vorhanden."),
+        ("1. OG - Cosy Bedroom", "2 Einzelbetten (90 x 200 cm). Zwei Kissen (80 x 40 cm) und zwei Decken (140 x 200 cm) vorhanden."),
     ]:
         story += [card(title, text), Spacer(1, 4 * mm)]
 
-    story += [card("Bus nach Grächen", "Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos."), Spacer(1, 7 * mm)]
     organizer = [Paragraph("Organisatorisches", styles["H2Guide"])]
     for item in [
+        "Bus nach Grächen: Die Haltestelle liegt an der Hauptstraße nach Grächen. Der Bus ist für Bergbahnbenutzer kostenlos.",
         "Nichtraucherhaus",
         "Keine Haustiere",
         "Bettwäsche und Handtücher: Bitte selber mitbringen oder nach Absprache.",
-        "Kurtaxe: Normalerweise CHF 3,80 pro Person und Tag (kann bar im Einmachglas hinterlassen werden).",
+        "Kurtaxe: CHF 3,80 pro Person und Tag (bitte bar im Einmachglas hinterlassen).",
     ]:
-        organizer.append(Paragraph("• " + item, styles["BodyGuide"]))
+        organizer.append(Paragraph("• " + item, styles["CheckGuide"]))
     story.append(KeepTogether(organizer))
     story += [Spacer(1, 8 * mm), Paragraph("5", styles["KickerGuide"]), Paragraph("Check-out & Abreise", styles["H1Guide"]),
               card("Check-out", "Check-out ist bis 10:00 Uhr oder nach Absprache."), Spacer(1, 5 * mm),
