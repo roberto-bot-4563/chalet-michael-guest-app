@@ -68,6 +68,8 @@ function estimate(value) {
 
 export default function ProjectBoard() {
   const [projects, setProjects] = useState(initialProjects);
+  const [dataState, setDataState] = useState("loading");
+  const [dataMessage, setDataMessage] = useState("Gemeinsame Projekte werden geladen …");
   const [search, setSearch] = useState("");
   const [responsibility, setResponsibility] = useState("Alle");
   const [category, setCategory] = useState("Alle");
@@ -75,15 +77,76 @@ export default function ProjectBoard() {
   const [contactsOpen, setContactsOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) setProjects(JSON.parse(saved));
-    } catch {}
+    let active = true;
+
+    async function loadProjects() {
+      try {
+        const response = await fetch("/api/projects", { cache: "no-store" });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Projekte konnten nicht geladen werden.");
+
+        if (result.projects) {
+          if (active) {
+            setProjects(result.projects);
+            localStorage.setItem(storageKey, JSON.stringify(result.projects));
+            setDataState("saved");
+            setDataMessage("Gemeinsam gespeichert");
+          }
+          return;
+        }
+
+        let firstProjects = initialProjects;
+        const local = localStorage.getItem(storageKey);
+        if (local) firstProjects = JSON.parse(local);
+
+        const saveResponse = await fetch("/api/projects", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ projects: firstProjects }),
+        });
+        const saveResult = await saveResponse.json();
+        if (!saveResponse.ok) throw new Error(saveResult.error || "Projekte konnten nicht eingerichtet werden.");
+
+        if (active) {
+          setProjects(firstProjects);
+          setDataState("saved");
+          setDataMessage(local ? "Vorhandene Projekte wurden übernommen" : "Gemeinsam gespeichert");
+        }
+      } catch (error) {
+        if (active) {
+          setDataState("error");
+          setDataMessage(error.message);
+        }
+      }
+    }
+
+    loadProjects();
+    return () => { active = false; };
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(projects));
-  }, [projects]);
+  async function persist(nextProjects) {
+    setProjects(nextProjects);
+    localStorage.setItem(storageKey, JSON.stringify(nextProjects));
+    setDataState("saving");
+    setDataMessage("Wird gespeichert …");
+
+    try {
+      const response = await fetch("/api/projects", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projects: nextProjects }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Speichern fehlgeschlagen.");
+      setDataState("saved");
+      setDataMessage("Gemeinsam gespeichert");
+      return true;
+    } catch (error) {
+      setDataState("error");
+      setDataMessage(`${error.message} Lokale Sicherung vorhanden.`);
+      return false;
+    }
+  }
 
   const categories = useMemo(
     () => [...new Set(projects.map(project => project.category))].sort(),
@@ -103,7 +166,7 @@ export default function ProjectBoard() {
   const openCount = projects.filter(project => project.status !== "Erledigt").length;
   const minimumCost = projects.reduce((sum, project) => sum + estimate(project.cost), 0);
 
-  function saveProject(event) {
+  async function saveProject(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const next = {
@@ -119,15 +182,14 @@ export default function ProjectBoard() {
       reminder: data.get("reminder"),
       note: data.get("note"),
     };
-    setProjects(current => editing?.id
-      ? current.map(project => project.id === editing.id ? next : project)
-      : [...current, next]
-    );
-    setEditing(null);
+    const nextProjects = editing?.id
+      ? projects.map(project => project.id === editing.id ? next : project)
+      : [...projects, next];
+    if (await persist(nextProjects)) setEditing(null);
   }
 
   function toggleDone(id) {
-    setProjects(current => current.map(project =>
+    persist(projects.map(project =>
       project.id === id
         ? { ...project, status: project.status === "Erledigt" ? "Offen" : "Erledigt" }
         : project
@@ -213,8 +275,8 @@ export default function ProjectBoard() {
       </section>
 
       <footer className={styles.footer}>
-        <span>Änderungen werden derzeit auf diesem Gerät gespeichert.</span>
-        <button onClick={() => setProjects(initialProjects)}>Ursprungsliste wiederherstellen</button>
+        <span data-state={dataState}>{dataMessage}</span>
+        <button disabled={dataState === "loading" || dataState === "saving"} onClick={() => persist(initialProjects)}>Ursprungsliste wiederherstellen</button>
       </footer>
 
       {contactsOpen && <div className={styles.overlay} onMouseDown={() => setContactsOpen(false)}>
@@ -249,7 +311,9 @@ export default function ProjectBoard() {
             <label className={styles.wide}>Notiz<textarea name="note" defaultValue={editing.note} rows="3" /></label>
           </div>
           <div className={styles.actions}>
-            {editing.id && <button type="button" className={styles.delete} onClick={() => { setProjects(current => current.filter(project => project.id !== editing.id)); setEditing(null); }}>Löschen</button>}
+            {editing.id && <button type="button" className={styles.delete} onClick={async () => {
+              if (await persist(projects.filter(project => project.id !== editing.id))) setEditing(null);
+            }}>Löschen</button>}
             <button type="button" className={styles.secondary} onClick={() => setEditing(null)}>Abbrechen</button>
             <button className={styles.primary} type="submit">Speichern</button>
           </div>
