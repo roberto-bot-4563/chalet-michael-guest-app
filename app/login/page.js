@@ -20,7 +20,8 @@ export default function GuideLogin() {
         body: JSON.stringify({ password })
       });
       if (!response.ok) throw new Error("Login failed");
-      window.location.href = "/";
+      const next = new URLSearchParams(window.location.search).get("next");
+      window.location.href = next === "/projekte" ? "/projekte" : "/";
     } catch {
       setError("Passwort nicht korrekt.");
     } finally {
