@@ -74,13 +74,13 @@
 .owner small, .owner strong { display: block; }
 .owner small { color: var(--muted); font-size: 9px; text-transform: uppercase; }
 .owner strong { margin-top: 2px; font-size: 12px; }
-.card footer { padding-top: 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; }
+.card footer { padding: 14px 0 0; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; background: transparent; color: inherit; text-align: left; }
 .card footer > span { color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
-.card footer > strong { font-size: 12px; white-space: nowrap; }
+.card footer > strong { display: inline; margin: 0; font: 750 12px/1.2 Arial, sans-serif; white-space: nowrap; }
 .check { width: 25px; height: 25px; padding: 0; border: 1px solid var(--border); border-radius: 5px; background: white; color: var(--green); display: grid; place-items: center; }
 .done .check { background: #e2e9df; }
 .empty { padding: 22px; border: 1px dashed var(--border); color: var(--muted); text-align: center; font-size: 13px; }
-.footer { margin: 0 48px 28px; padding-top: 17px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.footer { margin: 0 48px 28px; padding: 17px 0 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; background: transparent; color: var(--muted); text-align: left; font-size: 12px; }
 .footer button { border: 0; background: transparent; color: inherit; text-decoration: underline; }
 
 .overlay { position: fixed; inset: 0; z-index: 100; padding: 24px; background: rgba(28,27,25,.58); display: flex; justify-content: flex-end; backdrop-filter: blur(3px); }
