@@ -1,10 +1,20 @@
-import ProjectBoard from "./ProjectBoard";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { authToken } from "./manager/auth";
+import { validateInviteToken } from "./auth/invite";
+import GuideClient from "./GuideClient";
 
-export const metadata = {
-  title: "Projekte | Chalet Michael",
-  description: "Projektplanung für Chalet Michael in Grächen",
-};
+export default async function Page() {
+  const cookieStore = await cookies();
+  const current = cookieStore.get("cm_manager_auth")?.value;
+  const expected = authToken();
 
-export default function ProjektePage() {
-  return <ProjectBoard />;
+  const isAdmin = !!expected && current === expected;
+  const invite = validateInviteToken(cookieStore.get("cm_guest_invite")?.value);
+
+  if (!isAdmin && !invite) {
+    redirect("/login");
+  }
+
+  return <GuideClient isAdmin={isAdmin} />;
 }
